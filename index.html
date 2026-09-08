@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScamShield AI — Cyber Safety Assistant</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:#07111f;color:#eef5ff}
+.container{max-width:1050px;margin:auto;padding:28px 18px 60px}
+nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:55px}
+.logo{font-size:22px;font-weight:800}.logo span{color:#54d6ff}
+.badge{font-size:12px;padding:7px 11px;border:1px solid #29425e;border-radius:999px;color:#a9bfd5}
+.hero{text-align:center;margin-bottom:34px}.hero h1{font-size:clamp(38px,7vw,68px);margin:0 0 12px;letter-spacing:-2px}
+.hero h1 span{color:#54d6ff}.hero p{max-width:700px;margin:auto;color:#9db1c7;font-size:17px;line-height:1.6}
+.card{background:#0d1b2d;border:1px solid #203752;border-radius:20px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+textarea{width:100%;min-height:170px;resize:vertical;background:#07111f;color:#eef5ff;border:1px solid #29425e;border-radius:14px;padding:16px;font-size:15px;outline:none}
+textarea:focus{border-color:#54d6ff}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+button{border:0;border-radius:12px;padding:13px 20px;font-weight:700;cursor:pointer}
+.primary{background:#54d6ff;color:#06101c}.secondary{background:#162a40;color:#dcecff;border:1px solid #29425e}
+.examples{margin-top:14px;color:#8fa5bc;font-size:13px}.example{display:inline-block;margin:6px 6px 0 0;padding:7px 10px;border:1px solid #29425e;border-radius:999px;cursor:pointer}
+.result{display:none;margin-top:18px}.risk{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px;border-radius:14px;background:#160f12;border:1px solid #63343b}
+.risk strong{font-size:19px}.score{font-size:26px;font-weight:800;color:#ff8c8c}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:14px}
+.box{background:#091625;border:1px solid #203752;border-radius:14px;padding:15px}.box h3{font-size:14px;margin:0 0 8px}.box p,.box li{font-size:13px;color:#9db1c7;line-height:1.55}
+.disclaimer{margin-top:18px;color:#71869b;font-size:12px;line-height:1.5}
+footer{text-align:center;color:#667d94;margin-top:35px;font-size:12px}
+a{color:#54d6ff}
+</style>
+</head>
+<body>
+<div class="container">
+<nav><div class="logo">🛡️ ScamShield <span>AI</span></div><div class="badge">Prototype • Cyber Safety Tool</div></nav>
+
+<section class="hero">
+<h1>Check before you <span>click.</span></h1>
+<p>Paste a suspicious SMS, WhatsApp message, email, or URL. ScamShield AI gives a preliminary risk assessment, explains the warning signs, and tells you what to do next.</p>
+</section>
+
+<section class="card">
+<label for="input"><strong>Paste suspicious message or URL</strong></label>
+<textarea id="input" placeholder="Example: Your bank account will be blocked today. Verify immediately at http://example.com"></textarea>
+<div class="row">
+<button class="primary" onclick="analyze()">🔍 Check Now</button>
+<button class="secondary" onclick="clearAll()">Clear</button>
+</div>
+<div class="examples">
+Try a demo:
+<span class="example" onclick="demo(1)">Bank account warning</span>
+<span class="example" onclick="demo(2)">Prize scam</span>
+<span class="example" onclick="demo(3)">Normal message</span>
+</div>
+
+<div id="result" class="result">
+<div class="risk"><div><strong id="verdict"></strong><div id="summary"></div></div><div class="score" id="score"></div></div>
+<div class="grid">
+<div class="box"><h3>🚩 Warning signs</h3><ul id="signs"></ul></div>
+<div class="box"><h3>✅ What to do</h3><ul id="actions"></ul></div>
+<div class="box"><h3>🔐 Privacy</h3><p>Do not share OTPs, passwords, PINs, card details, or private documents with an unverified sender.</p></div>
+</div>
+<div class="disclaimer">This prototype is a screening/education tool, not a guaranteed fraud detector. Verify important requests through the organisation's official website/app or a trusted contact. If you have suffered financial cyber fraud in India, report immediately through the official cybercrime system/1930.</div>
+</div>
+</section>
+
+<footer>ScamShield AI • Student cybersecurity project prototype • Built for safer digital decisions</footer>
+</div>
+
+<script>
+const input=document.getElementById('input');
+function demo(n){
+ if(n===1) input.value="URGENT: Your bank account will be blocked today. Verify your KYC immediately by clicking http://secure-bank-login.example and enter your OTP.";
+ if(n===2) input.value="Congratulations! You have won ₹5,00,000. Pay ₹2,999 processing fee now to claim your prize. Click the link below.";
+ if(n===3) input.value="Hi, tomorrow's class starts at 10 AM. Please bring your project notes.";
+ analyze();
+}
+function analyze(){
+ const t=input.value.trim().toLowerCase();
+ if(!t){alert("Please paste a message or URL first.");return}
+ let score=5, signs=[], actions=[
+ "Do not click unknown links.",
+ "Verify the request using the organisation's official app/website.",
+ "Never share OTP, PIN, password or CVV."
+ ];
+ const patterns=[
+  [/urgent|immediately|act now|today|within \d+ (minutes|hours)/,18,"Creates urgency"],
+  [/otp|one[- ]time password|pin|cvv|password|kyc/,20,"Requests sensitive credentials"],
+  [/blocked|suspended|deactivated|account.*close/,15,"Uses an account-threat"],
+  [/won|prize|lottery|reward|congratulations/,18,"Unexpected prize/reward claim"],
+  [/pay|fee|processing|transfer|upi|bank account/,12,"Requests money/payment"],
+  [/https?:\/\/|www\./,12,"Contains a link"],
+  [/click|verify|login|update/,10,"Pushes immediate action"]
+ ];
+ patterns.forEach(p=>{if(p[0].test(t)){score+=p[1];signs.push(p[2])}});
+ score=Math.min(score,99);
+ let verdict=score>=65?"🔴 Potential Scam Detected":score>=35?"🟡 Suspicious — Verify Carefully":"🟢 No Strong Scam Signals Detected";
+ document.getElementById('verdict').textContent=verdict;
+ document.getElementById('score').textContent=score+"%";
+ document.getElementById('summary').textContent=score>=65?"Several common social-engineering indicators were found.":score>=35?"Some warning signs were found. Verify independently.":"This demo did not find strong scam indicators.";
+ document.getElementById('signs').innerHTML=(signs.length?signs:["No strong indicators detected in this demo."]).map(x=>"<li>"+x+"</li>").join("");
+ document.getElementById('actions').innerHTML=actions.map(x=>"<li>"+x+"</li>").join("");
+ document.getElementById('result').style.display="block";
+}
+function clearAll(){input.value="";document.getElementById('result').style.display="none"}
+</script>
+</body>
+</html>
