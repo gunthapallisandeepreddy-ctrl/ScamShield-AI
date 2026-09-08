@@ -3,104 +3,444 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ScamShield AI — Cyber Safety Assistant</title>
+<title>ScamShield AI</title>
+
 <style>
-*{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:#07111f;color:#eef5ff}
-.container{max-width:1050px;margin:auto;padding:28px 18px 60px}
-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:55px}
-.logo{font-size:22px;font-weight:800}.logo span{color:#54d6ff}
-.badge{font-size:12px;padding:7px 11px;border:1px solid #29425e;border-radius:999px;color:#a9bfd5}
-.hero{text-align:center;margin-bottom:34px}.hero h1{font-size:clamp(38px,7vw,68px);margin:0 0 12px;letter-spacing:-2px}
-.hero h1 span{color:#54d6ff}.hero p{max-width:700px;margin:auto;color:#9db1c7;font-size:17px;line-height:1.6}
-.card{background:#0d1b2d;border:1px solid #203752;border-radius:20px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
-textarea{width:100%;min-height:170px;resize:vertical;background:#07111f;color:#eef5ff;border:1px solid #29425e;border-radius:14px;padding:16px;font-size:15px;outline:none}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#07111f;
+  color:#eef5ff;
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:28px 18px 50px;
+}
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:45px;
+}
+.logo{
+  font-size:24px;
+  font-weight:800;
+}
+.logo span{color:#54d6ff}
+.badge{
+  border:1px solid #29425e;
+  padding:8px 14px;
+  border-radius:999px;
+  color:#a9bfd5;
+}
+.hero{text-align:center;margin-bottom:35px}
+.hero h1{
+  font-size:clamp(38px,7vw,68px);
+  margin:0 0 15px;
+}
+.hero h1 span{color:#54d6ff}
+.hero p{
+  max-width:720px;
+  margin:auto;
+  color:#a9bfd5;
+  font-size:18px;
+  line-height:1.6;
+}
+.card{
+  background:#0d1b2d;
+  border:1px solid #29425e;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 15px 50px rgba(0,0,0,.25);
+}
+label{
+  display:block;
+  font-weight:bold;
+  font-size:18px;
+  margin-bottom:12px;
+}
+textarea{
+  width:100%;
+  min-height:190px;
+  resize:vertical;
+  background:#07111f;
+  color:#eef5ff;
+  border:1px solid #29425e;
+  border-radius:15px;
+  padding:16px;
+  font-size:15px;
+  outline:none;
+}
 textarea:focus{border-color:#54d6ff}
-.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
-button{border:0;border-radius:12px;padding:13px 20px;font-weight:700;cursor:pointer}
-.primary{background:#54d6ff;color:#06101c}.secondary{background:#162a40;color:#dcecff;border:1px solid #29425e}
-.examples{margin-top:14px;color:#8fa5bc;font-size:13px}.example{display:inline-block;margin:6px 6px 0 0;padding:7px 10px;border:1px solid #29425e;border-radius:999px;cursor:pointer}
-.result{display:none;margin-top:18px}.risk{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px;border-radius:14px;background:#160f12;border:1px solid #63343b}
-.risk strong{font-size:19px}.score{font-size:26px;font-weight:800;color:#ff8c8c}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:14px}
-.box{background:#091625;border:1px solid #203752;border-radius:14px;padding:15px}.box h3{font-size:14px;margin:0 0 8px}.box p,.box li{font-size:13px;color:#9db1c7;line-height:1.55}
-.disclaimer{margin-top:18px;color:#71869b;font-size:12px;line-height:1.5}
-footer{text-align:center;color:#667d94;margin-top:35px;font-size:12px}
-a{color:#54d6ff}
+.row{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+button{
+  border:0;
+  border-radius:12px;
+  padding:14px 22px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.primary{background:#54d6ff;color:#06101c}
+.secondary{background:#162a40;color:#dcecff}
+.examples{margin-top:15px;color:#8fa5bc}
+.example{
+  display:inline-block;
+  margin:6px 6px 0 0;
+  padding:9px 13px;
+  border:1px solid #29425e;
+  border-radius:999px;
+  cursor:pointer;
+}
+.result{
+  display:none;
+  margin-top:20px;
+  padding:20px;
+  border:1px solid #334e68;
+  border-radius:16px;
+  background:#101f32;
+}
+.risk{
+  font-size:22px;
+  font-weight:800;
+}
+.score{
+  font-size:30px;
+  font-weight:800;
+  margin-top:8px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+  margin-top:15px;
+}
+.box{
+  background:#091625;
+  border:1px solid #203752;
+  border-radius:14px;
+  padding:15px;
+}
+.box h3{margin:0 0 8px;font-size:15px}
+.box ul{padding-left:20px;margin-bottom:0}
+.disclaimer{
+  margin-top:18px;
+  color:#71869b;
+  font-size:13px;
+  line-height:1.5;
+}
+footer{
+  text-align:center;
+  color:#667d94;
+  margin-top:35px;
+  font-size:12px;
+}
 </style>
 </head>
+
 <body>
 <div class="container">
-<nav><div class="logo">🛡️ ScamShield <span>AI</span></div><div class="badge">Prototype • Cyber Safety Tool</div></nav>
+
+<nav>
+  <div class="logo">🛡️ ScamShield <span>AI</span></div>
+  <div class="badge">Cyber Safety Tool</div>
+</nav>
 
 <section class="hero">
-<h1>Check before you <span>click.</span></h1>
-<p>Paste a suspicious SMS, WhatsApp message, email, or URL. ScamShield AI gives a preliminary risk assessment, explains the warning signs, and tells you what to do next.</p>
+  <h1>Check before you <span>click.</span></h1>
+  <p>
+    Paste a suspicious SMS, WhatsApp message, email or URL.
+    ScamShield AI performs a preliminary risk analysis and explains
+    the warning signs.
+  </p>
 </section>
 
 <section class="card">
-<label for="input"><strong>Paste suspicious message or URL</strong></label>
-<textarea id="input" placeholder="Example: Your bank account will be blocked today. Verify immediately at http://example.com"></textarea>
+
+<label for="input">Paste suspicious message or URL</label>
+
+<textarea id="input"
+placeholder="Example: Your bank account will be blocked today. Verify immediately at https://example.com"></textarea>
+
 <div class="row">
-<button class="primary" onclick="analyze()">🔍 Check Now</button>
-<button class="secondary" onclick="clearAll()">Clear</button>
+  <button class="primary" onclick="analyze()">🔎 Check Now</button>
+  <button class="secondary" onclick="clearAll()">Clear</button>
 </div>
+
 <div class="examples">
-Try a demo:
-<span class="example" onclick="demo(1)">Bank account warning</span>
-<span class="example" onclick="demo(2)">Prize scam</span>
-<span class="example" onclick="demo(3)">Normal message</span>
+  Try a demo:
+  <span class="example" onclick="demo(1)">Bank scam</span>
+  <span class="example" onclick="demo(2)">Prize scam</span>
+  <span class="example" onclick="demo(3)">Normal message</span>
 </div>
 
 <div id="result" class="result">
-<div class="risk"><div><strong id="verdict"></strong><div id="summary"></div></div><div class="score" id="score"></div></div>
-<div class="grid">
-<div class="box"><h3>🚩 Warning signs</h3><ul id="signs"></ul></div>
-<div class="box"><h3>✅ What to do</h3><ul id="actions"></ul></div>
-<div class="box"><h3>🔐 Privacy</h3><p>Do not share OTPs, passwords, PINs, card details, or private documents with an unverified sender.</p></div>
+
+  <div class="risk">
+    <strong id="verdict"></strong>
+  </div>
+
+  <div id="summary"></div>
+  <div id="score" class="score"></div>
+
+  <div class="grid">
+
+    <div class="box">
+      <h3>🚩 Warning Signs</h3>
+      <ul id="signs"></ul>
+    </div>
+
+    <div class="box">
+      <h3>✅ What to Do</h3>
+      <ul id="actions"></ul>
+    </div>
+
+    <div class="box">
+      <h3>🔐 Privacy</h3>
+      <p>
+        Never share OTPs, PINs, passwords, CVV, card details
+        or private documents with an unverified sender.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="disclaimer">
+    This is a cybersecurity education prototype using
+    rule-based screening. It is NOT a guaranteed fraud detector.
+    Always verify important requests through the organisation's
+    official website/app or a trusted contact.
+  </div>
+
 </div>
-<div class="disclaimer">This prototype is a screening/education tool, not a guaranteed fraud detector. Verify important requests through the organisation's official website/app or a trusted contact. If you have suffered financial cyber fraud in India, report immediately through the official cybercrime system/1930.</div>
-</div>
+
 </section>
 
-<footer>ScamShield AI • Student cybersecurity project prototype • Built for safer digital decisions</footer>
+<footer>
+ScamShield AI • Student Cybersecurity Project • Built for safer digital decisions
+</footer>
+
 </div>
 
 <script>
-const input=document.getElementById('input');
+
+const input = document.getElementById("input");
+
 function demo(n){
- if(n===1) input.value="URGENT: Your bank account will be blocked today. Verify your KYC immediately by clicking http://secure-bank-login.example and enter your OTP.";
- if(n===2) input.value="Congratulations! You have won ₹5,00,000. Pay ₹2,999 processing fee now to claim your prize. Click the link below.";
- if(n===3) input.value="Hi, tomorrow's class starts at 10 AM. Please bring your project notes.";
- analyze();
+
+  if(n===1){
+    input.value =
+    "URGENT! Your bank account will be blocked today. Verify your KYC immediately by clicking https://secure-bank-login.example and enter your OTP.";
+  }
+
+  if(n===2){
+    input.value =
+    "Congratulations! You have won ₹5,00,000. Pay ₹2,999 processing fee now to claim your prize. Click the link below.";
+  }
+
+  if(n===3){
+    input.value =
+    "Hi, tomorrow's class starts at 10 AM. Please bring your project notes.";
+  }
+
+  analyze();
 }
+
 function analyze(){
- const t=input.value.trim().toLowerCase();
- if(!t){alert("Please paste a message or URL first.");return}
- let score=5, signs=[], actions=[
- "Do not click unknown links.",
- "Verify the request using the organisation's official app/website.",
- "Never share OTP, PIN, password or CVV."
- ];
- const patterns=[
-  [/urgent|immediately|act now|today|within \d+ (minutes|hours)/,18,"Creates urgency"],
-  [/otp|one[- ]time password|pin|cvv|password|kyc/,20,"Requests sensitive credentials"],
-  [/blocked|suspended|deactivated|account.*close/,15,"Uses an account-threat"],
-  [/won|prize|lottery|reward|congratulations/,18,"Unexpected prize/reward claim"],
-  [/pay|fee|processing|transfer|upi|bank account/,12,"Requests money/payment"],
-  [/https?:\/\/|www\./,12,"Contains a link"],
-  [/click|verify|login|update/,10,"Pushes immediate action"]
- ];
- patterns.forEach(p=>{if(p[0].test(t)){score+=p[1];signs.push(p[2])}});
- score=Math.min(score,99);
- let verdict=score>=65?"🔴 Potential Scam Detected":score>=35?"🟡 Suspicious — Verify Carefully":"🟢 No Strong Scam Signals Detected";
- document.getElementById('verdict').textContent=verdict;
- document.getElementById('score').textContent=score+"%";
- document.getElementById('summary').textContent=score>=65?"Several common social-engineering indicators were found.":score>=35?"Some warning signs were found. Verify independently.":"This demo did not find strong scam indicators.";
- document.getElementById('signs').innerHTML=(signs.length?signs:["No strong indicators detected in this demo."]).map(x=>"<li>"+x+"</li>").join("");
- document.getElementById('actions').innerHTML=actions.map(x=>"<li>"+x+"</li>").join("");
- document.getElementById('result').style.display="block";
+
+  const text = input.value.trim();
+  const t = text.toLowerCase();
+
+  if(!text){
+    alert("Please paste a message or URL first.");
+    return;
+  }
+
+  let score = 0;
+  let signs = [];
+  let actions = [];
+
+  // 1. Urgency / pressure
+  const urgency =
+  /\b(urgent|immediately|now|act now|today|within \d+ (minutes?|hours?)|last warning|final warning|expires?|blocked|suspended)\b/i;
+
+  if(urgency.test(t)){
+    score += 18;
+    signs.push("Urgency or pressure to act quickly.");
+  }
+
+  // 2. Credentials
+  const credentials =
+  /\b(otp|one[- ]time password|password|pin|cvv|card number|credit card|debit card|kyc|account details|login|username)\b/i;
+
+  if(credentials.test(t)){
+    score += 25;
+    signs.push("Requests sensitive account or authentication information.");
+  }
+
+  // 3. Money / payment
+  const money =
+  /(₹|\$|€|£|\b(inr|usd|money|payment|pay|fee|processing fee|transfer|refund|cash|prize|reward|lottery|won|winning)\b)/i;
+
+  if(money.test(t)){
+    score += 18;
+    signs.push("Money, payment, prize or financial transaction is mentioned.");
+  }
+
+  // 4. Threat / account suspension
+  const threat =
+  /\b(blocked|suspended|deactivated|closed|legal action|police|penalty|fine|arrest)\b/i;
+
+  if(threat.test(t)){
+    score += 15;
+    signs.push("Threat of account closure, penalty or other consequences.");
+  }
+
+  // 5. Links
+  const urls = text.match(/https?:\/\/[^\s]+|www\.[^\s]+/gi);
+
+  if(urls && urls.length){
+    score += 15;
+    signs.push("Contains an external link. Verify the domain before opening.");
+  }
+
+  // 6. Suspicious URL characteristics
+  if(urls){
+
+    urls.forEach(url => {
+
+      const u = url.toLowerCase();
+
+      if(/\b(login|verify|secure|update|account|bank|wallet|claim)\b/.test(u)){
+        score += 8;
+        signs.push("URL contains words commonly used in impersonation links.");
+      }
+
+      if(/\.(xyz|top|click|win|zip|shop|live|icu|tk|ml|ga|cf)(\/|$)/i.test(u)){
+        score += 10;
+        signs.push("URL uses a higher-risk or unusual domain extension.");
+      }
+
+      if(/@/.test(u)){
+        score += 12;
+        signs.push("URL contains '@', which can be used to disguise the real destination.");
+      }
+
+      if(u.length > 100){
+        score += 5;
+        signs.push("URL is unusually long and should be checked carefully.");
+      }
+    });
+  }
+
+  // 7. Impersonation
+  const impersonation =
+  /\b(bank|rbi|government|income tax|police|amazon|flipkart|paytm|phonepe|google|microsoft|whatsapp|instagram|facebook)\b/i;
+
+  if(impersonation.test(t)){
+    score += 8;
+    signs.push("Claims to represent a bank, company or official organisation.");
+  }
+
+  // 8. Secret/payment instructions
+  const secret =
+  /\b(do not tell|keep secret|don't tell|share otp|send otp|send money|pay immediately|verify your account)\b/i;
+
+  if(secret.test(t)){
+    score += 12;
+    signs.push("Message contains secrecy or payment instructions.");
+  }
+
+  // 9. Grammar/social engineering indicators
+  const socialEngineering =
+  /\b(congratulations|selected|winner|limited time|lucky|exclusive offer|claim now|click here|verify now)\b/i;
+
+  if(socialEngineering.test(t)){
+    score += 10;
+    signs.push("Uses reward/offer language or a strong call to action.");
+  }
+
+  score = Math.min(score,100);
+
+  let verdict;
+
+  if(score >= 65){
+    verdict = "🔴 Potential Scam Detected";
+    actions = [
+      "Do not click links or download attachments.",
+      "Do not share OTP, PIN, password or CVV.",
+      "Verify independently using the official website/app.",
+      "Report or block the sender if appropriate."
+    ];
+  }
+  else if(score >= 35){
+    verdict = "🟠 Suspicious — Verify Carefully";
+    actions = [
+      "Do not act under pressure.",
+      "Check the sender and website independently.",
+      "Never provide confidential information.",
+      "Contact the organisation using an official channel."
+    ];
+  }
+  else{
+    verdict = "🟢 No Strong Scam Signals Detected";
+    actions = [
+      "Still verify important requests independently.",
+      "Do not share confidential information.",
+      "Check links before opening them."
+    ];
+  }
+
+  if(signs.length === 0){
+    signs.push("No strong scam indicators were detected by this prototype.");
+  }
+
+  document.getElementById("verdict").textContent = verdict;
+
+  document.getElementById("score").textContent =
+    "Risk Score: " + score + "/100";
+
+  document.getElementById("summary").textContent =
+    score >= 65
+    ? "Several scam-like indicators were found."
+    : score >= 35
+    ? "Some warning signs were found. Verify independently."
+    : "This screening did not find strong scam indicators.";
+
+  document.getElementById("signs").innerHTML =
+    signs.map(x => "<li>"+escapeHTML(x)+"</li>").join("");
+
+  document.getElementById("actions").innerHTML =
+    actions.map(x => "<li>"+escapeHTML(x)+"</li>").join("");
+
+  document.getElementById("result").style.display = "block";
 }
-function clearAll(){input.value="";document.getElementById('result').style.display="none"}
+
+function clearAll(){
+  input.value = "";
+  document.getElementById("result").style.display = "none";
+}
+
+function escapeHTML(str){
+  return str.replace(/[&<>"']/g,function(m){
+    return ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    })[m];
+  });
+}
+
 </script>
+
 </body>
 </html>
