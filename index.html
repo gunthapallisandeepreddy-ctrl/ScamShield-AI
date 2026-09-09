@@ -29,6 +29,10 @@ color:#55d5ff;
 margin-bottom:12px;
 }
 
+h2{
+font-size:30px;
+}
+
 .subtitle{
 text-align:center;
 color:#a9bdd6;
@@ -196,6 +200,70 @@ color:#a9bdd6;
 margin-top:8px;
 }
 
+/* ANALYTICS */
+
+.analytics{
+margin-top:30px;
+padding:22px;
+background:#071222;
+border:1px solid #29445f;
+border-radius:20px;
+}
+
+.analytics-title{
+font-size:22px;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.bar-row{
+margin:18px 0;
+}
+
+.bar-label{
+display:flex;
+justify-content:space-between;
+margin-bottom:8px;
+color:#a9bdd6;
+font-weight:bold;
+}
+
+.bar-bg{
+height:24px;
+background:#16263a;
+border-radius:20px;
+overflow:hidden;
+border:1px solid #29445f;
+}
+
+.bar{
+height:100%;
+width:0%;
+border-radius:20px;
+transition:width .5s ease;
+}
+
+.high-bar{
+background:#e85d5d;
+}
+
+.suspicious-bar{
+background:#f0b84b;
+}
+
+.low-bar{
+background:#55d5ff;
+}
+
+.analytics-summary{
+margin-top:20px;
+padding:15px;
+border-radius:15px;
+background:#101e30;
+color:#a9bdd6;
+line-height:1.6;
+}
+
 .history-item{
 padding:18px;
 margin-top:12px;
@@ -292,7 +360,6 @@ Clear
 </button>
 
 </div>
-
 
 <div class="demo-buttons">
 
@@ -448,6 +515,63 @@ Your scan statistics
 <div class="stat">
 <div id="lowCount" class="stat-number">0</div>
 <div class="stat-label">Low Risk</div>
+</div>
+
+</div>
+
+
+<!-- RISK ANALYTICS -->
+
+<div class="analytics">
+
+<div class="analytics-title">
+📈 Risk Analytics
+</div>
+
+<div class="bar-row">
+
+<div class="bar-label">
+<span>🚨 High Risk</span>
+<span id="highPercent">0%</span>
+</div>
+
+<div class="bar-bg">
+<div id="highBar" class="bar high-bar"></div>
+</div>
+
+</div>
+
+
+<div class="bar-row">
+
+<div class="bar-label">
+<span>⚠️ Suspicious</span>
+<span id="suspiciousPercent">0%</span>
+</div>
+
+<div class="bar-bg">
+<div id="suspiciousBar" class="bar suspicious-bar"></div>
+</div>
+
+</div>
+
+
+<div class="bar-row">
+
+<div class="bar-label">
+<span>✅ Low Risk</span>
+<span id="lowPercent">0%</span>
+</div>
+
+<div class="bar-bg">
+<div id="lowBar" class="bar low-bar"></div>
+</div>
+
+</div>
+
+
+<div id="analyticsSummary" class="analytics-summary">
+No scans available yet.
 </div>
 
 </div>
@@ -712,6 +836,7 @@ why.push(
 );
 
 }
+
 else if(!https){
 
 urlRisk="⚠️ SUSPICIOUS";
@@ -720,6 +845,7 @@ urlDetails=
 "A URL was detected without HTTPS. Verify the destination before opening it.";
 
 }
+
 else{
 
 urlRisk="🟡 CHECK CAREFULLY";
@@ -768,6 +894,7 @@ summary=
 "This message contains multiple scam warning signs. Do not click suspicious links or share OTP, PIN, CVV or passwords.";
 
 }
+
 else if(score>=30){
 
 verdict="⚠️ SUSPICIOUS";
@@ -776,6 +903,7 @@ summary=
 "This message contains some suspicious characteristics. Verify the sender and request before taking any action.";
 
 }
+
 else{
 
 verdict="✅ LOW RISK";
@@ -796,6 +924,7 @@ whyHTML=
 "<li>No major suspicious characteristics were detected.</li>";
 
 }
+
 else{
 
 for(var i=0;i<why.length;i++){
@@ -818,6 +947,7 @@ signsHTML=
 "<li>No obvious warning signs detected.</li>";
 
 }
+
 else{
 
 for(var j=0;j<signs.length;j++){
@@ -878,7 +1008,6 @@ threatType
 renderHistory();
 
 updateDashboard();
-
 
 document.getElementById("result").scrollIntoView({
 behavior:"smooth"
@@ -969,7 +1098,6 @@ for(var i=0;i<scanHistory.length;i++){
 var item=scanHistory[i];
 
 html+=
-
 '<div class="history-item">'+
 
 '<div class="history-status">'+
@@ -1001,7 +1129,7 @@ list.innerHTML=html;
 }
 
 
-/* DASHBOARD */
+/* DASHBOARD + ANALYTICS */
 
 function updateDashboard(){
 
@@ -1023,6 +1151,7 @@ scanHistory[i].verdict.includes("HIGH RISK")
 high++;
 
 }
+
 else if(
 scanHistory[i].verdict.includes("SUSPICIOUS")
 ){
@@ -1030,6 +1159,7 @@ scanHistory[i].verdict.includes("SUSPICIOUS")
 suspicious++;
 
 }
+
 else if(
 scanHistory[i].verdict.includes("LOW RISK")
 ){
@@ -1040,6 +1170,8 @@ low++;
 
 }
 
+
+/* NUMBERS */
 
 document.getElementById("totalCount").innerText=
 total;
@@ -1052,6 +1184,83 @@ suspicious;
 
 document.getElementById("lowCount").innerText=
 low;
+
+
+/* PERCENTAGES */
+
+var highPercent=0;
+
+var suspiciousPercent=0;
+
+var lowPercent=0;
+
+if(total>0){
+
+highPercent=Math.round((high/total)*100);
+
+suspiciousPercent=Math.round((suspicious/total)*100);
+
+lowPercent=Math.round((low/total)*100);
+
+}
+
+
+/* BARS */
+
+document.getElementById("highBar").style.width=
+highPercent+"%";
+
+document.getElementById("suspiciousBar").style.width=
+suspiciousPercent+"%";
+
+document.getElementById("lowBar").style.width=
+lowPercent+"%";
+
+
+/* LABELS */
+
+document.getElementById("highPercent").innerText=
+highPercent+"%";
+
+document.getElementById("suspiciousPercent").innerText=
+suspiciousPercent+"%";
+
+document.getElementById("lowPercent").innerText=
+lowPercent+"%";
+
+
+/* SUMMARY */
+
+var summaryBox=
+document.getElementById("analyticsSummary");
+
+if(total===0){
+
+summaryBox.innerText=
+"No scans available yet.";
+
+}
+
+else if(high===total){
+
+summaryBox.innerText=
+"🚨 All scanned messages are currently classified as High Risk by the prototype.";
+
+}
+
+else if(low===total){
+
+summaryBox.innerText=
+"✅ All scanned messages are currently classified as Low Risk by the prototype.";
+
+}
+
+else{
+
+summaryBox.innerText=
+"Your scans are distributed across High Risk, Suspicious and Low Risk categories.";
+
+}
 
 }
 
