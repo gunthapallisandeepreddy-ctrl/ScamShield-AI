@@ -158,6 +158,44 @@ color:#a9bdd6;
 line-height:1.6;
 }
 
+.warning{
+margin-top:25px;
+padding:18px;
+border-radius:16px;
+background:#16263a;
+color:#a9bdd6;
+line-height:1.6;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.stat{
+background:#071222;
+border:1px solid #29445f;
+border-radius:20px;
+padding:20px 10px;
+text-align:center;
+}
+
+.stat-number{
+font-size:32px;
+font-weight:bold;
+color:#55d5ff;
+}
+
+.stat-label{
+font-size:15px;
+color:#a9bdd6;
+margin-top:8px;
+}
+
 .history-item{
 padding:18px;
 margin-top:12px;
@@ -192,15 +230,6 @@ ul{
 line-height:1.8;
 }
 
-.warning{
-margin-top:25px;
-padding:18px;
-border-radius:16px;
-background:#16263a;
-color:#a9bdd6;
-line-height:1.6;
-}
-
 .footer{
 text-align:center;
 color:#71869f;
@@ -209,11 +238,21 @@ line-height:1.5;
 }
 
 @media(max-width:600px){
+
 h1{font-size:34px}
+
 .subtitle{font-size:17px}
+
 .card{padding:22px}
+
 label{font-size:21px}
+
 textarea{font-size:16px}
+
+.dashboard{
+grid-template-columns:repeat(2,1fr);
+}
+
 }
 </style>
 </head>
@@ -230,23 +269,49 @@ ScamShield AI checks common scam and phishing warning signs
 and explains what you should do next.
 </div>
 
+
+<!-- SCANNER -->
+
 <div class="card">
 
-<label for="input">Paste suspicious message or URL</label>
+<label for="input">
+Paste suspicious message or URL
+</label>
 
 <textarea id="input"
 placeholder="Paste the suspicious message or URL here..."></textarea>
 
 <div class="buttons">
-<button class="check" onclick="analyze()">🔎 Check Now</button>
-<button class="clear" onclick="clearAll()">Clear</button>
+
+<button class="check" onclick="analyze()">
+🔎 Check Now
+</button>
+
+<button class="clear" onclick="clearAll()">
+Clear
+</button>
+
 </div>
 
+
 <div class="demo-buttons">
-<button class="demo" onclick="demoBank()">Bank account warning</button>
-<button class="demo" onclick="demoPrize()">Prize scam</button>
-<button class="demo" onclick="demoNormal()">Normal message</button>
+
+<button class="demo" onclick="demoBank()">
+Bank account warning
+</button>
+
+<button class="demo" onclick="demoPrize()">
+Prize scam
+</button>
+
+<button class="demo" onclick="demoNormal()">
+Normal message
+</button>
+
 </div>
+
+
+<!-- RESULT -->
 
 <div id="result" class="result">
 
@@ -261,7 +326,9 @@ placeholder="Paste the suspicious message or URL here..."></textarea>
 
 <div class="info-box">
 
-<div class="info-title">🎯 Threat Type</div>
+<div class="info-title">
+🎯 Threat Type
+</div>
 
 <div id="threatType">
 No specific threat type detected
@@ -318,7 +385,7 @@ No URL detected
 </div>
 
 
-<!-- REPORT SCAM -->
+<!-- REPORT -->
 
 <div class="report-box">
 
@@ -328,9 +395,9 @@ No URL detected
 
 <p class="report-note">
 If you believe this is a real cybercrime or financial fraud,
-report it through India's official National Cyber Crime Reporting
-Portal. If money has already been lost, contact your bank
-immediately and call 1930.
+report it through India's official National Cyber Crime
+Reporting Portal. If money has already been lost,
+contact your bank immediately and call 1930.
 </p>
 
 <button class="report-button" onclick="reportScam()">
@@ -351,7 +418,44 @@ organisation's official website/app or a trusted contact.
 </div>
 
 
-<!-- SCAN HISTORY -->
+<!-- DASHBOARD -->
+
+<div class="card">
+
+<h2>📊 ScamShield Dashboard</h2>
+
+<p class="report-note">
+Your scan statistics
+</p>
+
+<div class="dashboard">
+
+<div class="stat">
+<div id="totalCount" class="stat-number">0</div>
+<div class="stat-label">Total Scans</div>
+</div>
+
+<div class="stat">
+<div id="highCount" class="stat-number">0</div>
+<div class="stat-label">High Risk</div>
+</div>
+
+<div class="stat">
+<div id="suspiciousCount" class="stat-number">0</div>
+<div class="stat-label">Suspicious</div>
+</div>
+
+<div class="stat">
+<div id="lowCount" class="stat-number">0</div>
+<div class="stat-label">Low Risk</div>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- HISTORY -->
 
 <div class="card">
 
@@ -371,8 +475,10 @@ No scans yet. Your previous scam checks will appear here.
 
 
 <div class="footer">
-ScamShield AI • Student cybersecurity project prototype •
+
+ScamShield AI • Student cybersecurity project prototype<br>
 Built for safer digital decisions
+
 </div>
 
 </div>
@@ -384,15 +490,19 @@ var scanHistory =
 JSON.parse(localStorage.getItem("scamShieldHistory")) || [];
 
 
-/* MAIN ANALYSIS */
+/* ANALYZE */
 
 function analyze(){
 
-var message=document.getElementById("input").value.trim();
+var message =
+document.getElementById("input").value.trim();
 
 if(message===""){
+
 alert("Please paste a suspicious message or URL first.");
+
 return;
+
 }
 
 var text=message.toLowerCase();
@@ -418,7 +528,9 @@ text.includes("within")
 
 score+=20;
 
-signs.push("Urgency or pressure language detected");
+signs.push(
+"Urgency or pressure language detected"
+);
 
 why.push(
 "The sender is creating pressure so you may act without verifying the message."
@@ -439,7 +551,9 @@ text.includes("passcode")
 
 score+=25;
 
-signs.push("Possible request for sensitive information");
+signs.push(
+"Possible request for sensitive information"
+);
 
 why.push(
 "The message asks for sensitive information such as OTP, PIN, CVV or password."
@@ -448,7 +562,7 @@ why.push(
 }
 
 
-/* BANK / KYC */
+/* BANK */
 
 if(
 text.includes("bank") ||
@@ -460,7 +574,9 @@ text.includes("verify")
 
 score+=15;
 
-signs.push("Bank, KYC or account verification language");
+signs.push(
+"Bank, KYC or account verification language"
+);
 
 why.push(
 "It uses bank, KYC or account verification language commonly seen in phishing scams."
@@ -484,7 +600,9 @@ text.includes("congratulations")
 
 score+=25;
 
-signs.push("Prize or reward bait detected");
+signs.push(
+"Prize or reward bait detected"
+);
 
 why.push(
 "It promises a prize or reward to encourage the victim to respond."
@@ -507,7 +625,9 @@ text.includes("transfer")
 
 score+=20;
 
-signs.push("Money or payment request detected");
+signs.push(
+"Money or payment request detected"
+);
 
 why.push(
 "It requests money, a fee or a financial transfer."
@@ -518,7 +638,7 @@ threatTypes.push("Financial Scam");
 }
 
 
-/* THREAT */
+/* THREATS */
 
 if(
 text.includes("police") ||
@@ -530,13 +650,17 @@ text.includes("digital arrest")
 
 score+=25;
 
-signs.push("Threat or authority-related language detected");
+signs.push(
+"Threat or authority-related language detected"
+);
 
 why.push(
 "It uses threats or authority figures to frighten the recipient into obeying."
 );
 
-threatTypes.push("Threat / Digital Arrest Scam");
+threatTypes.push(
+"Threat / Digital Arrest Scam"
+);
 
 }
 
@@ -559,7 +683,9 @@ if(hasURL){
 
 score+=20;
 
-signs.push("Link or URL detected");
+signs.push(
+"Link or URL detected"
+);
 
 why.push(
 "The message contains a link. Suspicious links can lead to fake login or payment pages."
@@ -571,7 +697,8 @@ text.includes("tinyurl") ||
 text.includes("t.co") ||
 text.includes("shorturl");
 
-var https=text.includes("https://");
+var https=
+text.includes("https://");
 
 if(shortLink){
 
@@ -605,20 +732,24 @@ urlDetails=
 }
 
 
-/* SCORE LIMIT */
+/* LIMIT */
 
 if(score>100){
+
 score=100;
+
 }
 
 
 /* THREAT TYPE */
 
-var threatType="No specific threat type detected";
+var threatType=
+"No specific threat type detected";
 
 if(threatTypes.length>0){
 
-threatType=threatTypes.join(" + ");
+threatType=
+threatTypes.join(" + ");
 
 }
 
@@ -655,7 +786,7 @@ summary=
 }
 
 
-/* WHY LIST */
+/* WHY */
 
 var whyHTML="";
 
@@ -677,7 +808,7 @@ whyHTML+=
 }
 
 
-/* SIGNS LIST */
+/* SIGNS */
 
 var signsHTML="";
 
@@ -735,7 +866,7 @@ document.getElementById("result").style.display=
 "block";
 
 
-/* SAVE HISTORY */
+/* HISTORY */
 
 saveHistory(
 message,
@@ -746,6 +877,8 @@ threatType
 
 renderHistory();
 
+updateDashboard();
+
 
 document.getElementById("result").scrollIntoView({
 behavior:"smooth"
@@ -754,7 +887,7 @@ behavior:"smooth"
 }
 
 
-/* REPORT SCAM */
+/* REPORT */
 
 function reportScam(){
 
@@ -805,7 +938,7 @@ JSON.stringify(scanHistory)
 }
 
 
-/* SHOW HISTORY */
+/* HISTORY */
 
 function renderHistory(){
 
@@ -825,7 +958,6 @@ list.innerHTML="";
 return;
 
 }
-
 
 empty.style.display="none";
 
@@ -864,8 +996,62 @@ item.time+
 
 }
 
-
 list.innerHTML=html;
+
+}
+
+
+/* DASHBOARD */
+
+function updateDashboard(){
+
+var total=scanHistory.length;
+
+var high=0;
+
+var suspicious=0;
+
+var low=0;
+
+
+for(var i=0;i<scanHistory.length;i++){
+
+if(
+scanHistory[i].verdict.includes("HIGH RISK")
+){
+
+high++;
+
+}
+else if(
+scanHistory[i].verdict.includes("SUSPICIOUS")
+){
+
+suspicious++;
+
+}
+else if(
+scanHistory[i].verdict.includes("LOW RISK")
+){
+
+low++;
+
+}
+
+}
+
+
+document.getElementById("totalCount").innerText=
+total;
+
+document.getElementById("highCount").innerText=
+high;
+
+document.getElementById("suspiciousCount").innerText=
+suspicious;
+
+document.getElementById("lowCount").innerText=
+low;
 
 }
 
@@ -875,7 +1061,9 @@ list.innerHTML=html;
 function clearHistory(){
 
 if(scanHistory.length===0){
+
 return;
+
 }
 
 var confirmClear=
@@ -891,6 +1079,8 @@ localStorage.removeItem(
 
 renderHistory();
 
+updateDashboard();
+
 }
 
 }
@@ -902,7 +1092,8 @@ function clearAll(){
 
 document.getElementById("input").value="";
 
-document.getElementById("result").style.display="none";
+document.getElementById("result").style.display=
+"none";
 
 }
 
@@ -912,7 +1103,6 @@ document.getElementById("result").style.display="none";
 function demoBank(){
 
 document.getElementById("input").value=
-
 "URGENT: Your bank account will be blocked today. "+
 "Verify KYC immediately by clicking https://example.com "+
 "and enter your OTP.";
@@ -927,7 +1117,6 @@ analyze();
 function demoPrize(){
 
 document.getElementById("input").value=
-
 "Congratulations! You have won Rs.5,00,000 prize. "+
 "Pay Rs.2,999 processing fee to claim your reward. "+
 "Click https://example.com";
@@ -942,7 +1131,6 @@ analyze();
 function demoNormal(){
 
 document.getElementById("input").value=
-
 "Hi, tomorrow's class starts at 10 AM. "+
 "Please bring your project notes.";
 
@@ -951,9 +1139,11 @@ analyze();
 }
 
 
-/* LOAD HISTORY */
+/* START */
 
 renderHistory();
+
+updateDashboard();
 
 </script>
 
