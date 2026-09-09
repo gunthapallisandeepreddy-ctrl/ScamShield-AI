@@ -1628,10 +1628,52 @@ function clearHistory(){
 }
 
 
-
 function demoBank(){
 
-  document.getElementById(
-    'input'
-  ).value =
-    'URGENT: Your bank account will be blocked today
+document.getElementById('input').value =
+'URGENT: Your bank account will be blocked today. Verify KYC immediately and enter your OTP.';
+
+analyze();
+
+}
+
+
+function demoPrize(){
+
+document.getElementById('input').value =
+'Congratulations! You are a lucky winner. You won a cash prize of Rs 50,000. Pay a small processing fee to claim your reward.';
+
+analyze();
+
+}
+
+
+function demoNormal(){
+
+document.getElementById('input').value =
+"Hi, today's class starts at 10 AM. Please bring your notebook.";
+
+analyze();
+
+}
+
+
+function reportScam(){
+
+window.open(
+'https://cybercrime.gov.in/',
+'_blank'
+);
+
+}
+
+
+renderHistory();
+
+updateDashboard();
+
+</script>
+
+</body>
+</html>
+
