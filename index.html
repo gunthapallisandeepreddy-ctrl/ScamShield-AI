@@ -138,6 +138,26 @@ font-weight:bold;
 margin:8px 0;
 }
 
+.report-box{
+margin-top:25px;
+padding:22px;
+border-radius:18px;
+background:#17283c;
+border:1px solid #29445f;
+}
+
+.report-button{
+background:#e85d5d;
+color:white;
+margin-top:12px;
+width:100%;
+}
+
+.report-note{
+color:#a9bdd6;
+line-height:1.6;
+}
+
 .history-item{
 padding:18px;
 margin-top:12px;
@@ -240,8 +260,13 @@ placeholder="Paste the suspicious message or URL here..."></textarea>
 
 
 <div class="info-box">
+
 <div class="info-title">🎯 Threat Type</div>
-<div id="threatType">Unknown</div>
+
+<div id="threatType">
+No specific threat type detected
+</div>
+
 </div>
 
 
@@ -289,6 +314,28 @@ No URL detected
 </div>
 
 <ul id="actions"></ul>
+
+</div>
+
+
+<!-- REPORT SCAM -->
+
+<div class="report-box">
+
+<div class="info-title">
+🚨 Report This Scam
+</div>
+
+<p class="report-note">
+If you believe this is a real cybercrime or financial fraud,
+report it through India's official National Cyber Crime Reporting
+Portal. If money has already been lost, contact your bank
+immediately and call 1930.
+</p>
+
+<button class="report-button" onclick="reportScam()">
+🚨 Report Cybercrime
+</button>
 
 </div>
 
@@ -652,7 +699,7 @@ signsHTML+=
 }
 
 
-/* DISPLAY RESULT */
+/* DISPLAY */
 
 document.getElementById("verdict").innerText=
 verdict;
@@ -684,7 +731,6 @@ document.getElementById("actions").innerHTML=
 "<li>Verify the organisation using its official website or app.</li>"+
 "<li>If money was lost, contact your bank and call 1930.</li>";
 
-
 document.getElementById("result").style.display=
 "block";
 
@@ -704,6 +750,18 @@ renderHistory();
 document.getElementById("result").scrollIntoView({
 behavior:"smooth"
 });
+
+}
+
+
+/* REPORT SCAM */
+
+function reportScam(){
+
+window.open(
+"https://cybercrime.gov.in/",
+"_blank"
+);
 
 }
 
@@ -732,9 +790,6 @@ time:new Date().toLocaleString()
 };
 
 scanHistory.unshift(item);
-
-
-/* Keep latest 10 */
 
 if(scanHistory.length>10){
 
@@ -820,9 +875,7 @@ list.innerHTML=html;
 function clearHistory(){
 
 if(scanHistory.length===0){
-
 return;
-
 }
 
 var confirmClear=
