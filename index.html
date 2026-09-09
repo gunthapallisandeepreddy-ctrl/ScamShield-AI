@@ -171,8 +171,6 @@ color:#a9bdd6;
 line-height:1.6;
 }
 
-/* DASHBOARD */
-
 .dashboard{
 display:grid;
 grid-template-columns:repeat(4,1fr);
@@ -199,8 +197,6 @@ font-size:15px;
 color:#a9bdd6;
 margin-top:8px;
 }
-
-/* ANALYTICS */
 
 .analytics{
 margin-top:30px;
@@ -306,21 +302,14 @@ line-height:1.5;
 }
 
 @media(max-width:600px){
-
 h1{font-size:34px}
-
 .subtitle{font-size:17px}
-
 .card{padding:22px}
-
 label{font-size:21px}
-
 textarea{font-size:16px}
-
 .dashboard{
 grid-template-columns:repeat(2,1fr);
 }
-
 }
 </style>
 </head>
@@ -336,9 +325,6 @@ Paste a suspicious SMS, WhatsApp message, email, or URL.<br>
 ScamShield AI checks common scam and phishing warning signs
 and explains what you should do next.
 </div>
-
-
-<!-- SCANNER -->
 
 <div class="card">
 
@@ -377,9 +363,6 @@ Normal message
 
 </div>
 
-
-<!-- RESULT -->
-
 <div id="result" class="result">
 
 <h2>🔍 Scam Analysis</h2>
@@ -390,69 +373,35 @@ Normal message
 
 <p id="summary"></p>
 
+<div class="info-box">
+<div class="info-title">🎯 Threat Type</div>
+<div id="threatType">No specific threat type detected</div>
+</div>
 
 <div class="info-box">
-
-<div class="info-title">
-🎯 Threat Type
-</div>
-
-<div id="threatType">
-No specific threat type detected
-</div>
-
-</div>
-
-
-<div class="info-box">
-
-<div class="info-title">
-🤔 Why is this suspicious?
-</div>
-
+<div class="info-title">🤔 Why is this suspicious?</div>
 <ul id="whyList"></ul>
-
 </div>
-
 
 <div class="info-box">
-
-<div class="info-title">
-⚠️ Warning Signs
-</div>
-
+<div class="info-title">⚠️ Warning Signs</div>
 <ul id="signs"></ul>
-
 </div>
-
 
 <div class="info-box">
-
-<div class="info-title">
-🔗 URL Risk Analysis
-</div>
+<div class="info-title">🔗 URL Risk Analysis</div>
 
 <div id="urlrisk" class="urlrisk">
 No URL detected
 </div>
 
 <p id="urldetails"></p>
-
 </div>
-
 
 <div class="info-box">
-
-<div class="info-title">
-✅ What You Should Do
-</div>
-
+<div class="info-title">✅ What You Should Do</div>
 <ul id="actions"></ul>
-
 </div>
-
-
-<!-- REPORT -->
 
 <div class="report-box">
 
@@ -475,7 +424,6 @@ contact your bank immediately and call 1930.
 
 </div>
 
-
 <div class="warning">
 This is a cybersecurity education prototype, not a guaranteed
 fraud detector. Always verify important requests through the
@@ -483,9 +431,6 @@ organisation's official website/app or a trusted contact.
 </div>
 
 </div>
-
-
-<!-- DASHBOARD -->
 
 <div class="card">
 
@@ -519,9 +464,6 @@ Your scan statistics
 
 </div>
 
-
-<!-- RISK ANALYTICS -->
-
 <div class="analytics">
 
 <div class="analytics-title">
@@ -529,57 +471,41 @@ Your scan statistics
 </div>
 
 <div class="bar-row">
-
 <div class="bar-label">
 <span>🚨 High Risk</span>
 <span id="highPercent">0%</span>
 </div>
-
 <div class="bar-bg">
 <div id="highBar" class="bar high-bar"></div>
 </div>
-
 </div>
 
-
 <div class="bar-row">
-
 <div class="bar-label">
 <span>⚠️ Suspicious</span>
 <span id="suspiciousPercent">0%</span>
 </div>
-
 <div class="bar-bg">
 <div id="suspiciousBar" class="bar suspicious-bar"></div>
 </div>
-
 </div>
 
-
 <div class="bar-row">
-
 <div class="bar-label">
 <span>✅ Low Risk</span>
 <span id="lowPercent">0%</span>
 </div>
-
 <div class="bar-bg">
 <div id="lowBar" class="bar low-bar"></div>
 </div>
-
 </div>
-
 
 <div id="analyticsSummary" class="analytics-summary">
 No scans available yet.
 </div>
 
 </div>
-
 </div>
-
-
-<!-- HISTORY -->
 
 <div class="card">
 
@@ -597,16 +523,12 @@ No scans yet. Your previous scam checks will appear here.
 
 </div>
 
-
 <div class="footer">
-
 ScamShield AI • Student cybersecurity project prototype<br>
 Built for safer digital decisions
-
 </div>
 
 </div>
-
 
 <script>
 
@@ -614,189 +536,373 @@ var scanHistory =
 JSON.parse(localStorage.getItem("scamShieldHistory")) || [];
 
 
-/* ANALYZE */
+/* =========================
+   ADVANCED DETECTION ENGINE
+   ========================= */
+
+function hasAny(text, words){
+for(var i=0;i<words.length;i++){
+if(text.includes(words[i])) return true;
+}
+return false;
+}
+
+function addUnique(arr,value){
+if(arr.indexOf(value)===-1){
+arr.push(value);
+}
+}
 
 function analyze(){
 
-var message =
-document.getElementById("input").value.trim();
+var message=document.getElementById("input").value.trim();
 
 if(message===""){
-
 alert("Please paste a suspicious message or URL first.");
-
 return;
-
 }
 
 var text=message.toLowerCase();
 
 var score=0;
-
 var signs=[];
-
 var why=[];
-
 var threatTypes=[];
 
 
 /* URGENCY */
 
-if(
-text.includes("urgent") ||
-text.includes("immediately") ||
-text.includes("act now") ||
-text.includes("today") ||
-text.includes("within")
-){
+if(hasAny(text,[
+"urgent",
+"immediately",
+"act now",
+"act immediately",
+"today",
+"within 24",
+"within 1 hour",
+"last warning",
+"final warning",
+"expires today",
+"do it now",
+"quickly",
+"urgent action"
+])){
 
-score+=20;
+score+=18;
 
-signs.push(
-"Urgency or pressure language detected"
-);
+addUnique(signs,
+"Urgency or pressure language detected");
 
-why.push(
-"The sender is creating pressure so you may act without verifying the message."
-);
-
+addUnique(why,
+"The sender is creating pressure so you may act without verifying the request.");
 }
 
 
 /* SENSITIVE INFORMATION */
 
-if(
-text.includes("otp") ||
-text.includes("password") ||
-text.includes("pin") ||
-text.includes("cvv") ||
-text.includes("passcode")
-){
+if(hasAny(text,[
+"otp",
+"one time password",
+"password",
+"pin",
+"cvv",
+"passcode",
+"security code",
+"verification code",
+"atm pin",
+"upi pin"
+])){
 
-score+=25;
+score+=28;
 
-signs.push(
-"Possible request for sensitive information"
-);
+addUnique(signs,
+"Possible request for sensitive information");
 
-why.push(
-"The message asks for sensitive information such as OTP, PIN, CVV or password."
-);
+addUnique(why,
+"The message mentions credentials or security information that should normally remain private.");
 
 }
 
 
-/* BANK */
+/* BANK / KYC */
 
-if(
-text.includes("bank") ||
-text.includes("kyc") ||
-text.includes("account") ||
-text.includes("blocked") ||
-text.includes("verify")
-){
+if(hasAny(text,[
+"bank",
+"kyc",
+"account",
+"account blocked",
+"account will be blocked",
+"verify kyc",
+"update kyc",
+"bank account",
+"net banking",
+"internet banking",
+"debit card",
+"credit card"
+])){
 
 score+=15;
 
-signs.push(
-"Bank, KYC or account verification language"
-);
+addUnique(signs,
+"Bank, KYC or account verification language");
 
-why.push(
-"It uses bank, KYC or account verification language commonly seen in phishing scams."
-);
+addUnique(why,
+"Banking and KYC themes are commonly used in phishing messages.");
 
-threatTypes.push("Banking Phishing");
+addUnique(threatTypes,
+"Banking Phishing");
+
+}
+
+
+/* PAYMENT */
+
+if(hasAny(text,[
+"pay",
+"payment",
+"processing fee",
+"registration fee",
+"send money",
+"transfer money",
+"transfer",
+"deposit",
+"refund fee",
+"claim fee",
+"pay now"
+])){
+
+score+=18;
+
+addUnique(signs,
+"Money or payment request detected");
+
+addUnique(why,
+"The message requests money, a payment or financial transfer.");
+
+addUnique(threatTypes,
+"Financial Scam");
+
+}
+
+
+/* UPI */
+
+if(hasAny(text,[
+"upi",
+"upi id",
+"upi pin",
+"collect request",
+"paytm",
+"phonepe",
+"google pay",
+"gpay",
+"scan qr",
+"qr code"
+])){
+
+score+=20;
+
+addUnique(signs,
+"UPI or digital payment activity detected");
+
+addUnique(why,
+"Scammers may use UPI requests, QR codes or fake payment instructions to obtain money.");
+
+addUnique(threatTypes,
+"UPI / Payment Scam");
 
 }
 
 
 /* PRIZE */
 
-if(
-text.includes("prize") ||
-text.includes("winner") ||
-text.includes("won") ||
-text.includes("lottery") ||
-text.includes("reward") ||
-text.includes("congratulations")
-){
+if(hasAny(text,[
+"prize",
+"winner",
+"you won",
+"won",
+"lottery",
+"reward",
+"cash prize",
+"gift",
+"gift card",
+"congratulations",
+"lucky winner"
+])){
 
-score+=25;
+score+=24;
 
-signs.push(
-"Prize or reward bait detected"
-);
+addUnique(signs,
+"Prize or reward bait detected");
 
-why.push(
-"It promises a prize or reward to encourage the victim to respond."
-);
+addUnique(why,
+"The message promises an unexpected reward or prize to encourage the recipient to respond.");
 
-threatTypes.push("Prize Scam");
-
-}
-
-
-/* MONEY */
-
-if(
-text.includes("pay") ||
-text.includes("payment") ||
-text.includes("fee") ||
-text.includes("send money") ||
-text.includes("transfer")
-){
-
-score+=20;
-
-signs.push(
-"Money or payment request detected"
-);
-
-why.push(
-"It requests money, a fee or a financial transfer."
-);
-
-threatTypes.push("Financial Scam");
+addUnique(threatTypes,
+"Prize Scam");
 
 }
 
 
-/* THREATS */
+/* THREATS / DIGITAL ARREST */
 
-if(
-text.includes("police") ||
-text.includes("cbi") ||
-text.includes("court") ||
-text.includes("legal action") ||
-text.includes("digital arrest")
-){
+if(hasAny(text,[
+"police",
+"cbi",
+"court",
+"legal action",
+"arrest",
+"digital arrest",
+"cyber crime case",
+"fir",
+"warrant",
+"jail",
+"criminal case",
+"customs",
+"investigation"
+])){
 
-score+=25;
+score+=28;
 
-signs.push(
-"Threat or authority-related language detected"
-);
+addUnique(signs,
+"Threat or authority-related language detected");
 
-why.push(
-"It uses threats or authority figures to frighten the recipient into obeying."
-);
+addUnique(why,
+"The message uses fear, legal threats or authority figures to pressure the recipient.");
 
-threatTypes.push(
-"Threat / Digital Arrest Scam"
-);
+addUnique(threatTypes,
+"Threat / Digital Arrest Scam");
 
 }
 
 
-/* URL */
+/* PHISHING / FAKE LOGIN */
 
-var hasURL=
-text.includes("http://") ||
-text.includes("https://") ||
-text.includes("www.") ||
-text.includes("bit.ly") ||
-text.includes("tinyurl");
+if(hasAny(text,[
+"login",
+"log in",
+"sign in",
+"verify your identity",
+"verify account",
+"account verification",
+"reset password",
+"unlock account",
+"secure your account",
+"click to verify",
+"click here to login",
+"confirm your account"
+])){
+
+score+=22;
+
+addUnique(signs,
+"Possible phishing or fake-login language detected");
+
+addUnique(why,
+"The message may be trying to move you to a fake login or verification page.");
+
+addUnique(threatTypes,
+"Phishing");
+
+}
+
+
+/* REMOTE ACCESS */
+
+if(hasAny(text,[
+"anydesk",
+"teamviewer",
+"remote access",
+"screen sharing",
+"share your screen",
+"install app",
+"download app",
+"remote control"
+])){
+
+score+=30;
+
+addUnique(signs,
+"Remote-access or screen-sharing request detected");
+
+addUnique(why,
+"Remote-access requests can allow scammers to control or observe a device.");
+
+addUnique(threatTypes,
+"Remote Access Scam");
+
+}
+
+
+/* IMPERSONATION */
+
+if(hasAny(text,[
+"customer care",
+"support team",
+"bank officer",
+"police officer",
+"government officer",
+"amazon support",
+"flipkart support",
+"your manager",
+"ceo",
+"official team"
+])){
+
+score+=12;
+
+addUnique(signs,
+"Possible impersonation language detected");
+
+addUnique(why,
+"The sender may be pretending to represent a trusted organisation or authority.");
+
+addUnique(threatTypes,
+"Impersonation Scam");
+
+}
+
+
+/* MONEY AMOUNT */
+
+if(
+/(?:₹|rs\.?|inr)\s?\d+/i.test(message) ||
+/\d{1,3}(?:,\d{3})+(?:\.\d+)?/.test(message)
+){
+
+score+=10;
+
+addUnique(signs,
+"Money amount detected");
+
+addUnique(why,
+"A financial amount appears in the message. Verify any unexpected payment or fee independently.");
+
+}
+
+
+/* INDIAN PHONE NUMBER */
+
+var phonePattern=/(?:\+91[\s-]?)?[6-9]\d{9}/;
+
+if(phonePattern.test(message)){
+
+score+=8;
+
+addUnique(signs,
+"Indian mobile number detected");
+
+addUnique(why,
+"A phone number is present. Do not trust a caller only because they claim to represent a bank, police department or company.");
+
+}
+
+
+/* URL ANALYSIS */
+
+var urlPattern=/(https?:\/\/[^\s]+|www\.[^\s]+|(?:bit\.ly|tinyurl\.com|t\.co|shorturl\.at)\/[^\s]+)/i;
+
+var hasURL=urlPattern.test(message);
 
 var urlRisk="No URL detected";
 
@@ -805,44 +911,90 @@ var urlDetails=
 
 if(hasURL){
 
-score+=20;
+score+=15;
 
-signs.push(
-"Link or URL detected"
-);
+addUnique(signs,
+"Link or URL detected");
 
-why.push(
-"The message contains a link. Suspicious links can lead to fake login or payment pages."
-);
+addUnique(why,
+"The message contains a link. Verify the destination before opening it.");
 
 var shortLink=
-text.includes("bit.ly") ||
-text.includes("tinyurl") ||
-text.includes("t.co") ||
-text.includes("shorturl");
+/bit\.ly|tinyurl\.com|t\.co|shorturl/i.test(message);
 
-var https=
-text.includes("https://");
+var httpOnly=
+/http:\/\//i.test(message);
+
+var ipURL=
+/https?:\/\/(?:\d{1,3}\.){3}\d{1,3}/i.test(message);
+
+var punycode=
+/xn--/i.test(message);
+
+var suspiciousWords=
+/login|verify|secure|account|kyc|payment|refund|claim|reward/i.test(message);
 
 if(shortLink){
+
+score+=20;
 
 urlRisk="🚨 HIGH RISK";
 
 urlDetails=
-"A shortened URL was detected. Shortened links can hide the real destination.";
+"A shortened URL was detected. It can hide the real destination.";
 
-why.push(
-"The link uses a URL-shortening service, which can hide the actual destination."
-);
+addUnique(why,
+"The shortened link can hide where the user will actually be redirected.");
 
 }
 
-else if(!https){
+else if(ipURL){
+
+score+=25;
+
+urlRisk="🚨 HIGH RISK";
+
+urlDetails=
+"The URL uses an IP address instead of a normal domain name.";
+
+addUnique(why,
+"IP-based links can be used to disguise suspicious websites.");
+
+}
+
+else if(punycode){
+
+score+=25;
+
+urlRisk="🚨 HIGH RISK";
+
+urlDetails=
+"The URL contains an internationalized/punycode domain pattern that deserves extra verification.";
+
+addUnique(why,
+"Punycode domains can sometimes be used in look-alike domain attacks.");
+
+}
+
+else if(httpOnly){
+
+score+=15;
 
 urlRisk="⚠️ SUSPICIOUS";
 
 urlDetails=
-"A URL was detected without HTTPS. Verify the destination before opening it.";
+"The URL uses HTTP instead of HTTPS.";
+
+}
+
+else if(suspiciousWords){
+
+score+=10;
+
+urlRisk="⚠️ SUSPICIOUS";
+
+urlDetails=
+"The URL/message contains login, verification, payment or account-related terms. Verify the domain carefully.";
 
 }
 
@@ -851,9 +1003,72 @@ else{
 urlRisk="🟡 CHECK CAREFULLY";
 
 urlDetails=
-"HTTPS is present, but HTTPS alone does not prove that a website is safe.";
+"HTTPS or a normal-looking URL does not guarantee that the website is safe. Verify the domain.";
 
 }
+
+}
+
+
+/* SUSPICIOUS LANGUAGE COMBINATION */
+
+var pressureAndMoney=
+hasAny(text,[
+"urgent",
+"immediately",
+"act now",
+"today"
+]) &&
+hasAny(text,[
+"pay",
+"payment",
+"fee",
+"transfer",
+"upi",
+"money"
+]);
+
+if(pressureAndMoney){
+
+score+=12;
+
+addUnique(signs,
+"Urgency combined with financial request");
+
+addUnique(why,
+"Pressure combined with a money request is a strong scam warning pattern.");
+
+}
+
+
+/* FAKE REFUND */
+
+if(
+hasAny(text,[
+"refund",
+"cashback",
+"refund pending",
+"refund claim"
+]) &&
+hasAny(text,[
+"click",
+"verify",
+"otp",
+"upi",
+"pay"
+])
+){
+
+score+=18;
+
+addUnique(signs,
+"Possible fake refund/cashback pattern detected");
+
+addUnique(why,
+"Scammers may use fake refunds or cashback offers to obtain credentials or payments.");
+
+addUnique(threatTypes,
+"Refund Scam");
 
 }
 
@@ -861,29 +1076,22 @@ urlDetails=
 /* LIMIT */
 
 if(score>100){
-
 score=100;
-
 }
 
 
 /* THREAT TYPE */
 
-var threatType=
-"No specific threat type detected";
+var threatType="No specific threat type detected";
 
 if(threatTypes.length>0){
-
-threatType=
-threatTypes.join(" + ");
-
+threatType=threatTypes.join(" + ");
 }
 
 
 /* VERDICT */
 
 var verdict;
-
 var summary;
 
 if(score>=60){
@@ -891,7 +1099,7 @@ if(score>=60){
 verdict="🚨 HIGH RISK";
 
 summary=
-"This message contains multiple scam warning signs. Do not click suspicious links or share OTP, PIN, CVV or passwords.";
+"This message contains multiple scam warning signs. Do not click suspicious links or share OTP, PIN, CVV, passwords or payment credentials.";
 
 }
 
@@ -900,7 +1108,7 @@ else if(score>=30){
 verdict="⚠️ SUSPICIOUS";
 
 summary=
-"This message contains some suspicious characteristics. Verify the sender and request before taking any action.";
+"This message contains suspicious characteristics. Verify the sender, website and request independently before taking action.";
 
 }
 
@@ -924,13 +1132,12 @@ whyHTML=
 "<li>No major suspicious characteristics were detected.</li>";
 
 }
-
 else{
 
 for(var i=0;i<why.length;i++){
 
 whyHTML+=
-"<li>"+why[i]+"</li>";
+"<li>"+escapeHTML(why[i])+"</li>";
 
 }
 
@@ -947,13 +1154,12 @@ signsHTML=
 "<li>No obvious warning signs detected.</li>";
 
 }
-
 else{
 
 for(var j=0;j<signs.length;j++){
 
 signsHTML+=
-"<li>"+signs[j]+"</li>";
+"<li>"+escapeHTML(signs[j])+"</li>";
 
 }
 
@@ -962,14 +1168,12 @@ signsHTML+=
 
 /* DISPLAY */
 
-document.getElementById("verdict").innerText=
-verdict;
+document.getElementById("verdict").innerText=verdict;
 
 document.getElementById("score").innerText=
 "Risk Score: "+score+" / 100";
 
-document.getElementById("summary").innerText=
-summary;
+document.getElementById("summary").innerText=summary;
 
 document.getElementById("threatType").innerText=
 threatType;
@@ -989,11 +1193,11 @@ urlDetails;
 document.getElementById("actions").innerHTML=
 "<li>Do not share OTP, PIN, CVV or passwords.</li>"+
 "<li>Do not click unknown or suspicious links.</li>"+
+"<li>Never give remote access to an unknown person.</li>"+
 "<li>Verify the organisation using its official website or app.</li>"+
 "<li>If money was lost, contact your bank and call 1930.</li>";
 
-document.getElementById("result").style.display=
-"block";
+document.getElementById("result").style.display="block";
 
 
 /* HISTORY */
@@ -1012,6 +1216,20 @@ updateDashboard();
 document.getElementById("result").scrollIntoView({
 behavior:"smooth"
 });
+
+}
+
+
+/* ESCAPE */
+
+function escapeHTML(text){
+
+return text
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
@@ -1038,25 +1256,17 @@ threatType
 ){
 
 var item={
-
 message:message,
-
 verdict:verdict,
-
 score:score,
-
 threatType:threatType,
-
 time:new Date().toLocaleString()
-
 };
 
 scanHistory.unshift(item);
 
 if(scanHistory.length>10){
-
 scanHistory=scanHistory.slice(0,10);
-
 }
 
 localStorage.setItem(
@@ -1077,13 +1287,10 @@ document.getElementById("historyList");
 var empty=
 document.getElementById("historyEmpty");
 
-
 if(scanHistory.length===0){
 
 empty.style.display="block";
-
 list.innerHTML="";
-
 return;
 
 }
@@ -1092,34 +1299,27 @@ empty.style.display="none";
 
 var html="";
 
-
 for(var i=0;i<scanHistory.length;i++){
 
 var item=scanHistory[i];
 
 html+=
 '<div class="history-item">'+
-
 '<div class="history-status">'+
-item.verdict+
+escapeHTML(item.verdict)+
 '</div>'+
-
 '<div class="history-text">'+
-item.message+
+escapeHTML(item.message)+
 '</div>'+
-
 '<div class="history-score">'+
 "Risk Score: "+item.score+" / 100"+
 '</div>'+
-
 '<div>'+
-"🎯 "+item.threatType+
+"🎯 "+escapeHTML(item.threatType)+
 '</div>'+
-
 '<small>'+
-item.time+
+escapeHTML(item.time)+
 '</small>'+
-
 '</div>';
 
 }
@@ -1129,18 +1329,15 @@ list.innerHTML=html;
 }
 
 
-/* DASHBOARD + ANALYTICS */
+/* DASHBOARD */
 
 function updateDashboard(){
 
 var total=scanHistory.length;
 
 var high=0;
-
 var suspicious=0;
-
 var low=0;
-
 
 for(var i=0;i<scanHistory.length;i++){
 
@@ -1171,190 +1368,4 @@ low++;
 }
 
 
-/* NUMBERS */
-
-document.getElementById("totalCount").innerText=
-total;
-
-document.getElementById("highCount").innerText=
-high;
-
-document.getElementById("suspiciousCount").innerText=
-suspicious;
-
-document.getElementById("lowCount").innerText=
-low;
-
-
-/* PERCENTAGES */
-
-var highPercent=0;
-
-var suspiciousPercent=0;
-
-var lowPercent=0;
-
-if(total>0){
-
-highPercent=Math.round((high/total)*100);
-
-suspiciousPercent=Math.round((suspicious/total)*100);
-
-lowPercent=Math.round((low/total)*100);
-
-}
-
-
-/* BARS */
-
-document.getElementById("highBar").style.width=
-highPercent+"%";
-
-document.getElementById("suspiciousBar").style.width=
-suspiciousPercent+"%";
-
-document.getElementById("lowBar").style.width=
-lowPercent+"%";
-
-
-/* LABELS */
-
-document.getElementById("highPercent").innerText=
-highPercent+"%";
-
-document.getElementById("suspiciousPercent").innerText=
-suspiciousPercent+"%";
-
-document.getElementById("lowPercent").innerText=
-lowPercent+"%";
-
-
-/* SUMMARY */
-
-var summaryBox=
-document.getElementById("analyticsSummary");
-
-if(total===0){
-
-summaryBox.innerText=
-"No scans available yet.";
-
-}
-
-else if(high===total){
-
-summaryBox.innerText=
-"🚨 All scanned messages are currently classified as High Risk by the prototype.";
-
-}
-
-else if(low===total){
-
-summaryBox.innerText=
-"✅ All scanned messages are currently classified as Low Risk by the prototype.";
-
-}
-
-else{
-
-summaryBox.innerText=
-"Your scans are distributed across High Risk, Suspicious and Low Risk categories.";
-
-}
-
-}
-
-
-/* CLEAR HISTORY */
-
-function clearHistory(){
-
-if(scanHistory.length===0){
-
-return;
-
-}
-
-var confirmClear=
-confirm("Clear all scan history?");
-
-if(confirmClear){
-
-scanHistory=[];
-
-localStorage.removeItem(
-"scamShieldHistory"
-);
-
-renderHistory();
-
-updateDashboard();
-
-}
-
-}
-
-
-/* CLEAR INPUT */
-
-function clearAll(){
-
-document.getElementById("input").value="";
-
-document.getElementById("result").style.display=
-"none";
-
-}
-
-
-/* BANK DEMO */
-
-function demoBank(){
-
-document.getElementById("input").value=
-"URGENT: Your bank account will be blocked today. "+
-"Verify KYC immediately by clicking https://example.com "+
-"and enter your OTP.";
-
-analyze();
-
-}
-
-
-/* PRIZE DEMO */
-
-function demoPrize(){
-
-document.getElementById("input").value=
-"Congratulations! You have won Rs.5,00,000 prize. "+
-"Pay Rs.2,999 processing fee to claim your reward. "+
-"Click https://example.com";
-
-analyze();
-
-}
-
-
-/* NORMAL DEMO */
-
-function demoNormal(){
-
-document.getElementById("input").value=
-"Hi, tomorrow's class starts at 10 AM. "+
-"Please bring your project notes.";
-
-analyze();
-
-}
-
-
-/* START */
-
-renderHistory();
-
-updateDashboard();
-
-</script>
-
-</body>
-</html>
+/* NUMBE
