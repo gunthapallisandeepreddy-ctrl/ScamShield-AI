@@ -41,7 +41,8 @@ margin-bottom:35px
 background:#101e30;
 border:1px solid #29445f;
 border-radius:28px;
-padding:35px
+padding:35px;
+margin-bottom:25px
 }
 
 label{
@@ -131,6 +132,39 @@ border:1px solid #29445f
 font-size:25px;
 font-weight:bold;
 margin:10px 0
+}
+
+.history-item{
+padding:18px;
+margin-top:12px;
+border-radius:16px;
+background:#071222;
+border:1px solid #29445f
+}
+
+.history-status{
+font-weight:bold;
+font-size:19px;
+margin-bottom:8px
+}
+
+.history-text{
+color:#a9bdd6;
+word-break:break-word
+}
+
+.history-score{
+color:#55d5ff;
+margin-top:7px
+}
+
+.history-buttons{
+margin-top:20px
+}
+
+.clear-history{
+background:#1b3149;
+color:#dcecff
 }
 
 ul{
@@ -225,6 +259,28 @@ organisation's official website/app or a trusted contact.
 
 </div>
 
+
+<!-- HISTORY -->
+
+<div class="card">
+
+<h2>📊 Scan History</h2>
+
+<p id="historyEmpty">
+No scans yet. Your previous scam checks will appear here.
+</p>
+
+<div id="historyList"></div>
+
+<div class="history-buttons">
+<button class="clear-history" onclick="clearHistory()">
+🗑️ Clear History
+</button>
+</div>
+
+</div>
+
+
 <div class="footer">
 ScamShield AI • Student cybersecurity project prototype •
 Built for safer digital decisions
@@ -234,6 +290,12 @@ Built for safer digital decisions
 
 
 <script>
+
+var scanHistory =
+JSON.parse(localStorage.getItem("scamShieldHistory")) || [];
+
+
+/* MAIN ANALYSIS */
 
 function analyze(){
 
@@ -245,11 +307,12 @@ return;
 }
 
 var text=message.toLowerCase();
+
 var score=0;
 var signs=[];
 
 
-/* Scam checks */
+/* Urgency */
 
 if(
 text.includes("urgent") ||
@@ -262,6 +325,9 @@ score+=20;
 signs.push("Urgency or pressure language detected");
 }
 
+
+/* Sensitive information */
+
 if(
 text.includes("otp") ||
 text.includes("password") ||
@@ -273,6 +339,9 @@ score+=25;
 signs.push("Possible request for sensitive information");
 }
 
+
+/* Bank / KYC */
+
 if(
 text.includes("bank") ||
 text.includes("kyc") ||
@@ -283,6 +352,9 @@ text.includes("verify")
 score+=15;
 signs.push("Bank, KYC or account verification language");
 }
+
+
+/* Prize */
 
 if(
 text.includes("prize") ||
@@ -296,6 +368,9 @@ score+=25;
 signs.push("Prize or reward bait detected");
 }
 
+
+/* Money */
+
 if(
 text.includes("pay") ||
 text.includes("payment") ||
@@ -306,6 +381,9 @@ text.includes("transfer")
 score+=20;
 signs.push("Money or payment request detected");
 }
+
+
+/* Threat */
 
 if(
 text.includes("police") ||
@@ -319,7 +397,7 @@ signs.push("Threat or authority-related language detected");
 }
 
 
-/* URL analysis */
+/* URL */
 
 var hasURL=
 text.includes("http://") ||
@@ -329,7 +407,9 @@ text.includes("bit.ly") ||
 text.includes("tinyurl");
 
 var urlRisk="No URL detected";
-var urlDetails="The message does not appear to contain a URL.";
+
+var urlDetails=
+"The message does not appear to contain a URL.";
 
 if(hasURL){
 
@@ -347,24 +427,32 @@ var https=text.includes("https://");
 if(shortLink){
 
 urlRisk="⚠️ HIGH RISK";
-urlDetails="A shortened URL was detected. Shortened links can hide the real destination.";
+
+urlDetails=
+"A shortened URL was detected. Shortened links can hide the real destination.";
 
 }
 else if(!https){
 
 urlRisk="⚠️ SUSPICIOUS";
-urlDetails="A URL was detected without HTTPS. Verify the destination before opening it.";
+
+urlDetails=
+"A URL was detected without HTTPS. Verify the destination before opening it.";
 
 }
 else{
 
 urlRisk="🟡 CHECK CAREFULLY";
-urlDetails="HTTPS is present, but HTTPS alone does not prove that a website is safe.";
+
+urlDetails=
+"HTTPS is present, but HTTPS alone does not prove that a website is safe.";
 
 }
 
 }
 
+
+/* Score limit */
 
 if(score>100){
 score=100;
@@ -402,7 +490,7 @@ summary=
 }
 
 
-/* Display */
+/* Display result */
 
 document.getElementById("verdict").innerText=verdict;
 
@@ -422,12 +510,15 @@ signsHTML="<li>No obvious warning signs detected.</li>";
 else{
 
 for(var i=0;i<signs.length;i++){
+
 signsHTML+="<li>"+signs[i]+"</li>";
+
 }
 
 }
 
 document.getElementById("signs").innerHTML=signsHTML;
+
 
 document.getElementById("actions").innerHTML=
 "<li>Do not share OTP, PIN, CVV or passwords.</li>"+
@@ -435,11 +526,20 @@ document.getElementById("actions").innerHTML=
 "<li>Verify the organisation using its official website or app.</li>"+
 "<li>If money was lost, contact your bank and call 1930.</li>";
 
+
 document.getElementById("urlrisk").innerText=urlRisk;
 
 document.getElementById("urldetails").innerText=urlDetails;
 
 document.getElementById("result").style.display="block";
+
+
+/* SAVE HISTORY */
+
+saveHistory(message,verdict,score);
+
+renderHistory();
+
 
 document.getElementById("result").scrollIntoView({
 behavior:"smooth"
@@ -448,7 +548,115 @@ behavior:"smooth"
 }
 
 
-/* Clear */
+/* SAVE */
+
+function saveHistory(message,verdict,score){
+
+var item={
+message:message,
+verdict:verdict,
+score:score,
+time:new Date().toLocaleString()
+};
+
+scanHistory.unshift(item);
+
+
+/* Keep only latest 10 */
+
+if(scanHistory.length>10){
+
+scanHistory=scanHistory.slice(0,10);
+
+}
+
+localStorage.setItem(
+"scamShieldHistory",
+JSON.stringify(scanHistory)
+);
+
+}
+
+
+/* SHOW HISTORY */
+
+function renderHistory(){
+
+var list=document.getElementById("historyList");
+
+var empty=document.getElementById("historyEmpty");
+
+if(scanHistory.length===0){
+
+empty.style.display="block";
+list.innerHTML="";
+return;
+
+}
+
+empty.style.display="none";
+
+var html="";
+
+for(var i=0;i<scanHistory.length;i++){
+
+var item=scanHistory[i];
+
+html+=
+'<div class="history-item">'+
+
+'<div class="history-status">'+
+item.verdict+
+'</div>'+
+
+'<div class="history-text">'+
+item.message+
+'</div>'+
+
+'<div class="history-score">'+
+"Risk Score: "+item.score+" / 100"+
+'</div>'+
+
+'<small>'+
+item.time+
+'</small>'+
+
+'</div>';
+
+}
+
+list.innerHTML=html;
+
+}
+
+
+/* CLEAR HISTORY */
+
+function clearHistory(){
+
+if(scanHistory.length===0){
+return;
+}
+
+var confirmClear=
+confirm("Clear all scan history?");
+
+if(confirmClear){
+
+scanHistory=[];
+
+localStorage.removeItem(
+"scamShieldHistory"
+);
+
+renderHistory();
+
+}
+
+}
+
+
+/* CLEAR INPUT */
 
 function clearAll(){
 
@@ -459,7 +667,7 @@ document.getElementById("result").style.display="none";
 }
 
 
-/* Demo 1 */
+/* BANK DEMO */
 
 function demoBank(){
 
@@ -473,7 +681,7 @@ analyze();
 }
 
 
-/* Demo 2 */
+/* PRIZE DEMO */
 
 function demoPrize(){
 
@@ -487,7 +695,7 @@ analyze();
 }
 
 
-/* Demo 3 */
+/* NORMAL DEMO */
 
 function demoNormal(){
 
@@ -498,6 +706,11 @@ document.getElementById("input").value=
 analyze();
 
 }
+
+
+/* LOAD HISTORY WHEN PAGE OPENS */
+
+renderHistory();
 
 </script>
 
