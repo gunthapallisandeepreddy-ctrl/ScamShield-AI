@@ -2,21 +2,14 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>ScamShield AI</title>
 
 <style>
 
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
 margin:0;
@@ -28,7 +21,7 @@ color:#eaf2ff;
 .container{
 max-width:900px;
 margin:auto;
-padding:20px;
+padding:18px;
 }
 
 .card{
@@ -59,13 +52,13 @@ textarea{
 width:100%;
 min-height:160px;
 background:#071426;
-color:white;
+color:#fff;
 border:1px solid #31516f;
 border-radius:16px;
 padding:16px;
 font-size:16px;
-outline:none;
 resize:vertical;
+outline:none;
 }
 
 button{
@@ -183,20 +176,11 @@ overflow:hidden;
 .fill{
 height:100%;
 width:0%;
-transition:width .3s;
 }
 
-.high{
-background:#ff5252;
-}
-
-.suspicious{
-background:#ffc107;
-}
-
-.low{
-background:#4caf50;
-}
+.high{background:#ff5252}
+.suspicious{background:#ffc107}
+.low{background:#4caf50}
 
 .history-item{
 background:#071426;
@@ -223,62 +207,45 @@ color:#91a7c0;
 
 @media(max-width:600px){
 
-.container{
-padding:14px;
-}
+.container{padding:14px}
 
-h1{
-font-size:34px;
-}
+h1{font-size:34px}
 
-.grid{
-grid-template-columns:1fr;
-}
+.grid{grid-template-columns:1fr}
 
-.card{
-padding:18px;
-}
+.card{padding:18px}
 
-button{
-font-size:14px;
-}
+button{font-size:14px}
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
 <div class="container">
 
+
+<!-- MAIN -->
 
 <div class="card">
 
 <h1>🛡️ ScamShield AI</h1>
 
 <p class="subtitle">
-Detect suspicious SMS, WhatsApp messages, emails
-and URLs using an intelligent scam-risk engine.
+Detect suspicious SMS, WhatsApp messages, emails and URLs using an intelligent scam-risk engine.
 </p>
-
 
 <textarea
 id="input"
 placeholder="Paste a suspicious message here..."
 ></textarea>
 
-
-<button
-type="button"
-onclick="analyze()"
->
+<button type="button" onclick="analyze()">
 🔍 Check Now
 </button>
-
 
 <button
 type="button"
@@ -288,11 +255,9 @@ onclick="clearInput()"
 ✖ Clear
 </button>
 
-
 <p class="subtitle">
 Try demo messages:
 </p>
-
 
 <button
 type="button"
@@ -302,7 +267,6 @@ onclick="demoBank()"
 🏦 Bank account warning
 </button>
 
-
 <button
 type="button"
 class="demo"
@@ -310,7 +274,6 @@ onclick="demoPrize()"
 >
 🎁 Prize scam
 </button>
-
 
 <button
 type="button"
@@ -323,6 +286,7 @@ onclick="demoNormal()"
 </div>
 
 
+<!-- RESULT -->
 
 <div
 id="result"
@@ -403,6 +367,7 @@ onclick="reportScam()"
 </div>
 
 
+<!-- DASHBOARD -->
 
 <div class="card">
 
@@ -411,7 +376,6 @@ onclick="reportScam()"
 <p class="subtitle">
 Your scan statistics
 </p>
-
 
 <div class="grid">
 
@@ -479,9 +443,7 @@ Low Risk
 
 </div>
 
-
 </div>
-
 
 
 <div
@@ -495,72 +457,49 @@ style="margin-top:18px;background:#071426"
 <div class="bar-row">
 
 <div class="bar-label">
-
 <span>🚨 High Risk</span>
-
-<span id="highPercent">
-0%
-</span>
-
+<span id="highPercent">0%</span>
 </div>
 
 <div class="bar">
-
 <div
 id="highBar"
 class="fill high"
 ></div>
-
 </div>
 
 </div>
-
 
 
 <div class="bar-row">
 
 <div class="bar-label">
-
 <span>⚠️ Suspicious</span>
-
-<span id="suspiciousPercent">
-0%
-</span>
-
+<span id="suspiciousPercent">0%</span>
 </div>
 
 <div class="bar">
-
 <div
 id="suspiciousBar"
 class="fill suspicious"
 ></div>
-
 </div>
 
 </div>
-
 
 
 <div class="bar-row">
 
 <div class="bar-label">
-
 <span>✅ Low Risk</span>
-
-<span id="lowPercent">
-0%
-</span>
-
+<span id="lowPercent">0%</span>
 </div>
 
 <div class="bar">
-
 <div
 id="lowBar"
 class="fill low"
 ></div>
-
 </div>
 
 </div>
@@ -578,6 +517,7 @@ No scans available yet.
 </div>
 
 
+<!-- HISTORY -->
 
 <div class="card">
 
@@ -591,7 +531,6 @@ No scan history yet.
 </div>
 
 <div id="historyList"></div>
-
 
 <button
 type="button"
@@ -607,75 +546,55 @@ onclick="clearHistory()"
 </div>
 
 
-
 <script>
 
+var scanHistory=[];
 
-var scanHistory = [];
 
+/* LOAD HISTORY */
 
 try{
 
-var saved =
-localStorage.getItem(
-"scamShieldHistory"
-);
+var saved=
+localStorage.getItem("scamShieldHistory");
 
 if(saved){
 
-var data =
-JSON.parse(saved);
+var data=JSON.parse(saved);
 
 if(Array.isArray(data)){
-
-scanHistory = data;
-
+scanHistory=data;
 }
 
 }
 
 }catch(error){
 
-scanHistory = [];
+scanHistory=[];
 
 }
 
 
-
-/* =========================
-   HELPERS
-========================= */
-
+/* HELPERS */
 
 function setText(id,value){
 
-var element =
-document.getElementById(id);
+var el=document.getElementById(id);
 
-if(element){
-
-element.innerText =
-value;
-
+if(el){
+el.innerText=value;
 }
 
 }
-
 
 
 function renderList(id,items){
 
-var element =
-document.getElementById(id);
+var el=document.getElementById(id);
 
-if(!element){
+if(!el)return;
 
-return;
-
-}
-
-element.innerHTML = "";
-
+el.innerHTML="";
 
 for(
 var i=0;
@@ -683,85 +602,64 @@ i<items.length;
 i++
 ){
 
-var li =
-document.createElement("li");
+var li=document.createElement("li");
 
-li.innerText =
-items[i];
+li.innerText=items[i];
 
-element.appendChild(li);
+el.appendChild(li);
 
 }
 
 }
 
 
-
-/* =========================
-   MAIN ANALYSIS
-========================= */
-
+/* ANALYZE */
 
 function analyze(){
 
-
-var input =
+var input=
 document.getElementById("input").value.trim();
-
 
 if(!input){
 
-alert(
-"Please enter a message first."
-);
+alert("Please enter a message first.");
 
 return;
 
 }
 
+var text=input.toLowerCase();
 
-var text =
-input.toLowerCase();
+var score=0;
 
+var reasons=[];
 
-var score = 0;
-
-var reasons = [];
-
-var signs = [];
+var signs=[];
 
 
-
-function addScore(
+function add(
 points,
 reason,
 sign
 ){
 
-score += points;
-
+score+=points;
 
 if(
 reason &&
-reasons.indexOf(reason) === -1
+reasons.indexOf(reason)===-1
 ){
-
 reasons.push(reason);
-
 }
-
 
 if(
 sign &&
-signs.indexOf(sign) === -1
+signs.indexOf(sign)===-1
 ){
-
 signs.push(sign);
-
 }
 
 }
-
 
 
 /* URGENCY */
@@ -771,7 +669,7 @@ if(
 .test(text)
 ){
 
-addScore(
+add(
 18,
 "Creates urgency or pressure.",
 "Urgent language"
@@ -780,15 +678,14 @@ addScore(
 }
 
 
-
-/* SENSITIVE INFORMATION */
+/* SENSITIVE DATA */
 
 if(
 /otp|one[- ]time password|cvv|pin|password|passcode|secret code/
 .test(text)
 ){
 
-addScore(
+add(
 28,
 "Requests sensitive authentication information.",
 "OTP/PIN/password request"
@@ -797,22 +694,20 @@ addScore(
 }
 
 
-
-/* BANKING */
+/* BANK */
 
 if(
 /bank account|bank|kyc|account blocked|account will be blocked|banking/
 .test(text)
 ){
 
-addScore(
+add(
 15,
 "Uses banking or KYC-related claims.",
 "Bank/KYC claim"
 );
 
 }
-
 
 
 /* PAYMENT */
@@ -822,14 +717,13 @@ if(
 .test(text)
 ){
 
-addScore(
+add(
 22,
 "Requests money or a payment.",
 "Payment request"
 );
 
 }
-
 
 
 /* UPI */
@@ -839,14 +733,13 @@ if(
 .test(text)
 ){
 
-addScore(
+add(
 20,
 "Mentions UPI or a payment collection request.",
 "UPI request"
 );
 
 }
-
 
 
 /* PRIZE */
@@ -856,7 +749,7 @@ if(
 .test(text)
 ){
 
-addScore(
+add(
 30,
 "Uses an unexpected prize or reward lure.",
 "Unexpected prize/reward"
@@ -865,22 +758,20 @@ addScore(
 }
 
 
-
-/* THREATS */
+/* THREAT */
 
 if(
 /digital arrest|arrest|police|court|legal action|case registered|fine/
 .test(text)
 ){
 
-addScore(
+add(
 28,
 "Uses threats or fear of legal action.",
 "Threat or intimidation"
 );
 
 }
-
 
 
 /* PHISHING */
@@ -890,14 +781,13 @@ if(
 .test(text)
 ){
 
-addScore(
+add(
 22,
 "Pushes the recipient toward verification or login.",
 "Verification/login pressure"
 );
 
 }
-
 
 
 /* REMOTE ACCESS */
@@ -907,14 +797,13 @@ if(
 .test(text)
 ){
 
-addScore(
+add(
 30,
 "Requests remote access to the device.",
 "Remote-access request"
 );
 
 }
-
 
 
 /* IMPERSONATION */
@@ -924,7 +813,7 @@ if(
 .test(text)
 ){
 
-addScore(
+add(
 12,
 "May be impersonating an authority or trusted organisation.",
 "Authority impersonation"
@@ -933,15 +822,14 @@ addScore(
 }
 
 
-
-/* MONEY AMOUNT */
+/* MONEY */
 
 if(
-/rs\.?|inr|₹|rupees|\b\d{3,6}\b/
+/rs\.?|inr|₹|rupees/
 .test(text)
 ){
 
-addScore(
+add(
 10,
 "Mentions a money amount or financial value.",
 "Money amount"
@@ -950,15 +838,14 @@ addScore(
 }
 
 
-
-/* PHONE NUMBER */
+/* PHONE */
 
 if(
 /(?:\+91[- ]?)?[6-9]\d{9}/
 .test(text)
 ){
 
-addScore(
+add(
 8,
 "Contains an Indian mobile number.",
 "Phone number"
@@ -967,18 +854,17 @@ addScore(
 }
 
 
-
 /* URL */
 
-var urls =
+var urls=
 input.match(
 /https?:\/\/[^\s]+|www\.[^\s]+/gi
-) || [];
+)||[];
 
 
-if(urls.length > 0){
+if(urls.length>0){
 
-addScore(
+add(
 15,
 "Contains a clickable web address.",
 "URL present"
@@ -986,13 +872,12 @@ addScore(
 
 
 for(
-var i=0;
-i<urls.length;
-i++
+var u=0;
+u<urls.length;
+u++
 ){
 
-var url =
-urls[i].toLowerCase();
+var url=urls[u].toLowerCase();
 
 
 if(
@@ -1000,7 +885,7 @@ if(
 .test(url)
 ){
 
-addScore(
+add(
 12,
 "Uses a shortened URL that hides the destination.",
 "Shortened URL"
@@ -1014,7 +899,7 @@ if(
 .test(url)
 ){
 
-addScore(
+add(
 18,
 "Uses an IP address instead of a normal domain.",
 "IP-based URL"
@@ -1028,7 +913,7 @@ if(
 .test(url)
 ){
 
-addScore(
+add(
 8,
 "Uses HTTP instead of HTTPS.",
 "Non-secure HTTP"
@@ -1042,7 +927,7 @@ if(
 .test(url)
 ){
 
-addScore(
+add(
 10,
 "URL contains suspicious keywords.",
 "Suspicious URL wording"
@@ -1055,15 +940,14 @@ addScore(
 }
 
 
-
-/* COMBINED PATTERNS */
+/* COMBINED PATTERN */
 
 if(
-/urgent|immediately|today/.test(text) &&
+/urgent|immediately|today/.test(text)&&
 /pay|payment|fee|rs\.?|inr|₹|prize|won/.test(text)
 ){
 
-addScore(
+add(
 12,
 "Combines urgency with a financial request.",
 "Urgency + money"
@@ -1072,13 +956,12 @@ addScore(
 }
 
 
-
 if(
-/refund|cashback/.test(text) &&
+/refund|cashback/.test(text)&&
 /otp|link|verify|pay|fee/.test(text)
 ){
 
-addScore(
+add(
 18,
 "Combines a refund/cashback lure with a risky action.",
 "Refund/cashback lure"
@@ -1087,43 +970,33 @@ addScore(
 }
 
 
-
-/* LIMIT */
-
-score =
-Math.min(100,score);
-
+score=Math.min(100,score);
 
 
 /* VERDICT */
 
 var verdict;
 
+if(score>=60){
 
-if(score >= 60){
-
-verdict =
-"HIGH RISK";
+verdict="HIGH RISK";
 
 }
-else if(score >= 30){
+else if(score>=30){
 
-verdict =
-"SUSPICIOUS";
+verdict="SUSPICIOUS";
 
 }
 else{
 
-verdict =
-"LOW RISK";
+verdict="LOW RISK";
 
 }
 
 
+/* THREAT TYPE */
 
-/* THREAT TYPE PRIORITY */
-
-var threatType =
+var threatType=
 "No major threat pattern detected";
 
 
@@ -1132,8 +1005,7 @@ if(
 .test(text)
 ){
 
-threatType =
-"Impersonation scam";
+threatType="Impersonation scam";
 
 }
 else if(
@@ -1141,8 +1013,7 @@ else if(
 .test(text)
 ){
 
-threatType =
-"Banking scam";
+threatType="Banking scam";
 
 }
 else if(
@@ -1150,8 +1021,7 @@ else if(
 .test(text)
 ){
 
-threatType =
-"Credential theft";
+threatType="Credential theft";
 
 }
 else if(
@@ -1159,8 +1029,7 @@ else if(
 .test(text)
 ){
 
-threatType =
-"Prize scam";
+threatType="Prize scam";
 
 }
 else if(
@@ -1168,14 +1037,7 @@ else if(
 .test(text)
 ){
 
-threatType =
-"Financial scam";
-
-}
-else if(urls.length > 0){
-
-threatType =
-"Phishing";
+threatType="Financial scam";
 
 }
 else if(
@@ -1183,8 +1045,12 @@ else if(
 .test(text)
 ){
 
-threatType =
-"Remote access scam";
+threatType="Remote access scam";
+
+}
+else if(urls.length>0){
+
+threatType="Phishing";
 
 }
 else if(
@@ -1192,42 +1058,36 @@ else if(
 .test(text)
 ){
 
-threatType =
-"Social engineering";
+threatType="Social engineering";
 
 }
-
 
 
 /* SUMMARY */
 
 var summary;
 
+if(verdict==="HIGH RISK"){
 
-if(verdict === "HIGH RISK"){
-
-summary =
+summary=
 "This message shows multiple strong scam indicators. Do not share sensitive information, click suspicious links, or send money.";
 
 }
-else if(verdict === "SUSPICIOUS"){
+else if(verdict==="SUSPICIOUS"){
 
-summary =
+summary=
 "This message contains warning signs. Verify the sender independently before taking any action.";
 
 }
 else{
 
-summary =
+summary=
 "No major scam pattern was detected by the current checks. Still be careful with unexpected requests.";
 
 }
 
 
-
-/* DEFAULT REASONS */
-
-if(reasons.length === 0){
+if(reasons.length===0){
 
 reasons.push(
 "No major suspicious pattern detected."
@@ -1235,8 +1095,7 @@ reasons.push(
 
 }
 
-
-if(signs.length === 0){
+if(signs.length===0){
 
 signs.push(
 "No obvious warning sign detected."
@@ -1245,15 +1104,13 @@ signs.push(
 }
 
 
-
 /* ACTIONS */
 
 var actions;
 
+if(verdict==="HIGH RISK"){
 
-if(verdict === "HIGH RISK"){
-
-actions = [
+actions=[
 
 "Do not click suspicious links.",
 
@@ -1266,9 +1123,9 @@ actions = [
 ];
 
 }
-else if(verdict === "SUSPICIOUS"){
+else if(verdict==="SUSPICIOUS"){
 
-actions = [
+actions=[
 
 "Do not act under pressure.",
 
@@ -1281,7 +1138,7 @@ actions = [
 }
 else{
 
-actions = [
+actions=[
 
 "Stay alert with unexpected messages.",
 
@@ -1292,103 +1149,86 @@ actions = [
 }
 
 
-
-/* DISPLAY RESULT */
+/* DISPLAY */
 
 setText(
 "verdict",
 verdict
 );
 
-
 setText(
 "score",
-"Risk Score: " +
-score +
-"/100"
+"Risk Score: "+score+"/100"
 );
-
 
 setText(
 "summary",
 summary
 );
 
-
 setText(
 "threatType",
 threatType
 );
-
 
 renderList(
 "whyList",
 reasons
 );
 
-
 renderList(
 "signs",
 signs
 );
 
-
 setText(
 "urlrisk",
-urls.length > 0
+urls.length>0
 ?
-urls.length +
-" URL(s) detected"
+urls.length+" URL(s) detected"
 :
 "No URL detected"
 );
 
-
 setText(
 "urldetails",
-urls.length > 0
+urls.length>0
 ?
 urls.join("\n")
 :
 "No web address was found in this message."
 );
 
-
 renderList(
 "actions",
 actions
 );
 
-
 document.getElementById(
 "result"
-).style.display =
-"block";
+).style.display="block";
 
 
+/* HISTORY */
 
-/* SAVE HISTORY */
+var record={
 
-var record = {
+verdict:verdict,
 
-verdict: verdict,
+score:score,
 
-score: score,
+text:input,
 
-text: input,
-
-time:
-new Date().toLocaleString()
+time:new Date().toLocaleString()
 
 };
-
 
 scanHistory.unshift(record);
 
 
-if(scanHistory.length > 50){
+if(scanHistory.length>50){
 
-scanHistory =
+scanHistory=
 scanHistory.slice(0,50);
 
 }
@@ -1404,7 +1244,6 @@ JSON.stringify(scanHistory)
 }catch(error){}
 
 
-
 renderHistory();
 
 updateDashboard();
@@ -1412,40 +1251,32 @@ updateDashboard();
 }
 
 
-
-/* =========================
-   HISTORY
-========================= */
-
+/* HISTORY DISPLAY */
 
 function renderHistory(){
 
-var empty =
+var empty=
 document.getElementById(
 "historyEmpty"
 );
 
-var list =
+var list=
 document.getElementById(
 "historyList"
 );
 
+list.innerHTML="";
 
-list.innerHTML = "";
 
+if(scanHistory.length===0){
 
-if(scanHistory.length === 0){
-
-empty.style.display =
-"block";
+empty.style.display="block";
 
 return;
 
 }
 
-
-empty.style.display =
-"none";
+empty.style.display="none";
 
 
 for(
@@ -1454,56 +1285,54 @@ i<scanHistory.length;
 i++
 ){
 
-var item =
+var item=
 document.createElement("div");
 
-item.className =
+item.className=
 "history-item";
 
 
-var verdict =
+var v=
 document.createElement("div");
 
-verdict.className =
+v.className=
 "history-verdict";
 
-verdict.innerText =
-scanHistory[i].verdict +
-" — " +
-scanHistory[i].score +
+v.innerText=
+scanHistory[i].verdict+
+" — "+
+scanHistory[i].score+
 "/100";
 
 
-var message =
+var msg=
 document.createElement("div");
 
-message.className =
+msg.className=
 "history-text";
 
-message.innerText =
-scanHistory[i].text ||
+msg.innerText=
+scanHistory[i].text||
 "No message text available.";
 
 
-var date =
+var time=
 document.createElement("div");
 
-date.className =
-"muted";
+time.className="muted";
 
-date.style.marginTop =
-"7px";
+time.style.marginTop="7px";
 
-date.innerText =
-scanHistory[i].time ||
+time.innerText=
+scanHistory[i].time||
 "Unknown time";
 
 
-item.appendChild(verdict);
+item.appendChild(v);
 
-item.appendChild(message);
+item.appendChild(msg);
 
-item.appendChild(date);
+item.appendChild(time);
 
 list.appendChild(item);
 
@@ -1512,22 +1341,18 @@ list.appendChild(item);
 }
 
 
-
-/* =========================
-   DASHBOARD
-========================= */
-
+/* DASHBOARD */
 
 function updateDashboard(){
 
-var total =
+var total=
 scanHistory.length;
 
-var high = 0;
+var high=0;
 
-var suspicious = 0;
+var suspicious=0;
 
-var low = 0;
+var low=0;
 
 
 for(
@@ -1537,24 +1362,21 @@ i++
 ){
 
 if(
-scanHistory[i].verdict ===
-"HIGH RISK"
+scanHistory[i].verdict==="HIGH RISK"
 ){
 
 high++;
 
 }
 else if(
-scanHistory[i].verdict ===
-"SUSPICIOUS"
+scanHistory[i].verdict==="SUSPICIOUS"
 ){
 
 suspicious++;
 
 }
 else if(
-scanHistory[i].verdict ===
-"LOW RISK"
+scanHistory[i].verdict==="LOW RISK"
 ){
 
 low++;
@@ -1564,129 +1386,70 @@ low++;
 }
 
 
+setText("totalCount",total);
 
-setText(
-"totalCount",
-total
-);
+setText("highCount",high);
 
-setText(
-"highCount",
-high
-);
+setText("suspiciousCount",suspicious);
 
-setText(
-"suspiciousCount",
-suspicious
-);
-
-setText(
-"lowCount",
-low
-);
+setText("lowCount",low);
 
 
-
-var highPercent =
+var hp=
 total
 ?
-Math.round(
-(high / total) * 100
-)
+Math.round(high/total*100)
 :
 0;
 
-
-var suspiciousPercent =
+var sp=
 total
 ?
-Math.round(
-(suspicious / total) * 100
-)
+Math.round(suspicious/total*100)
 :
 0;
 
-
-var lowPercent =
+var lp=
 total
 ?
-Math.round(
-(low / total) * 100
-)
+Math.round(low/total*100)
 :
 0;
-
 
 
 setText(
 "highPercent",
-highPercent + "%"
+hp+"%"
 );
 
 setText(
 "suspiciousPercent",
-suspiciousPercent + "%"
+sp+"%"
 );
 
 setText(
 "lowPercent",
-lowPercent + "%"
+lp+"%"
 );
-
 
 
 document.getElementById(
 "highBar"
-).style.width =
-highPercent + "%";
-
+).style.width=
+hp+"%";
 
 document.getElementById(
 "suspiciousBar"
-).style.width =
-suspiciousPercent + "%";
-
+).style.width=
+sp+"%";
 
 document.getElementById(
 "lowBar"
-).style.width =
-lowPercent + "%";
+).style.width=
+lp+"%";
 
 
-
-var scanWord =
-total === 1
-?
-"scan"
-:
-"scans";
-
-
-var highWord =
-high === 1
-?
-"was"
-:
-"were";
-
-
-var suspiciousWord =
-suspicious === 1
-?
-"was"
-:
-"were";
-
-
-var lowWord =
-low === 1
-?
-"was"
-:
-"were";
-
-
-if(total === 0){
+if(total===0){
 
 setText(
 "analyticsSummary",
@@ -1696,25 +1459,54 @@ setText(
 }
 else{
 
+var scanWord=
+total===1
+?
+"scan"
+:
+"scans";
+
+var hw=
+high===1
+?
+"was"
+:
+"were";
+
+var sw=
+suspicious===1
+?
+"was"
+:
+"were";
+
+var lw=
+low===1
+?
+"was"
+:
+"were";
+
+
 setText(
 "analyticsSummary",
 
-"Out of " +
-total +
-" " +
-scanWord +
-", " +
-high +
-" " +
-highWord +
-" High Risk, " +
-suspicious +
-" " +
-suspiciousWord +
-" Suspicious, and " +
-low +
-" " +
-lowWord +
+"Out of "+
+total+
+" "+
+scanWord+
+", "+
+high+
+" "+
+hw+
+" High Risk, "+
+suspicious+
+" "+
+sw+
+" Suspicious, and "+
+low+
+" "+
+lw+
 " Low Risk."
 
 );
@@ -1724,32 +1516,26 @@ lowWord +
 }
 
 
-
-/* =========================
-   BUTTONS
-========================= */
-
+/* CLEAR INPUT */
 
 function clearInput(){
 
 document.getElementById(
 "input"
-).value = "";
-
+).value="";
 
 document.getElementById(
 "result"
-).style.display =
-"none";
+).style.display="none";
 
 }
 
 
+/* CLEAR HISTORY */
 
 function clearHistory(){
 
-scanHistory = [];
-
+scanHistory=[];
 
 try{
 
@@ -1759,13 +1545,11 @@ localStorage.removeItem(
 
 }catch(error){}
 
-
 renderHistory();
 
 updateDashboard();
 
 }
-
 
 
 /* BANK DEMO */
@@ -1774,14 +1558,12 @@ function demoBank(){
 
 document.getElementById(
 "input"
-).value =
-
+).value=
 "URGENT: Your bank account will be blocked today. Verify KYC immediately and enter your OTP.";
 
 analyze();
 
 }
-
 
 
 /* PRIZE DEMO */
@@ -1790,14 +1572,12 @@ function demoPrize(){
 
 document.getElementById(
 "input"
-).value =
-
+).value=
 "Congratulations! You are a lucky winner. You won a cash prize of Rs 50,000. Pay a small processing fee to claim your reward.";
 
 analyze();
 
 }
-
 
 
 /* NORMAL DEMO */
@@ -1806,8 +1586,7 @@ function demoNormal(){
 
 document.getElementById(
 "input"
-).value =
-
+).value=
 "Hi, today's class starts at 10 AM. Please bring your notebook.";
 
 analyze();
@@ -1815,18 +1594,17 @@ analyze();
 }
 
 
-
-/* REPORT */
+/* REPORT SCAM
+   Opens directly in same tab
+   so popup permission is not required.
+*/
 
 function reportScam(){
 
-window.open(
-"https://cybercrime.gov.in/",
-"_blank"
-);
+window.location.href=
+"https://cybercrime.gov.in/";
 
 }
-
 
 
 /* START */
@@ -1835,10 +1613,7 @@ renderHistory();
 
 updateDashboard();
 
-
 </script>
 
-
 </body>
-
 </html>
