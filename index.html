@@ -3,13 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ScamShield AI</title>
 
 <style>
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
 margin:0;
@@ -22,7 +19,7 @@ color:#eaf3ff;
 width:92%;
 max-width:900px;
 margin:auto;
-padding:40px 0;
+padding:35px 0;
 }
 
 h1{
@@ -32,66 +29,59 @@ color:#55d5ff;
 margin-bottom:12px;
 }
 
-h2{
-font-size:30px;
-}
+h2{font-size:30px}
 
 .subtitle{
 text-align:center;
 color:#a9bdd6;
 font-size:20px;
 line-height:1.6;
-margin-bottom:35px;
+margin-bottom:30px;
 }
 
 .card{
 background:#101e30;
 border:1px solid #29445f;
 border-radius:28px;
-padding:35px;
+padding:30px;
 margin-bottom:25px;
 }
 
 label{
 display:block;
-font-size:24px;
+font-size:23px;
 font-weight:bold;
-margin-bottom:18px;
+margin-bottom:15px;
 }
 
 textarea{
 width:100%;
-min-height:250px;
+min-height:230px;
 padding:20px;
-border-radius:22px;
+border-radius:20px;
 border:1px solid #29445f;
 background:#071222;
 color:#eaf3ff;
 font-size:18px;
 line-height:1.5;
-outline:none;
 resize:vertical;
+outline:none;
 }
 
-.buttons,
-.demo-buttons{
+.buttons,.demo-buttons{
 display:flex;
 flex-wrap:wrap;
-gap:14px;
-margin-top:20px;
+gap:12px;
+margin-top:18px;
 }
 
 button{
 border:none;
-border-radius:18px;
-padding:16px 25px;
-font-size:18px;
+border-radius:16px;
+padding:15px 22px;
+font-size:17px;
 font-weight:bold;
 cursor:pointer;
-}
-
-button:active{
-transform:scale(.98);
 }
 
 .check{
@@ -99,7 +89,7 @@ background:#55d5ff;
 color:#061121;
 }
 
-.clear{
+.clear,.clear-history{
 background:#1b3149;
 color:#dcecff;
 }
@@ -112,17 +102,17 @@ color:#a9bdd6;
 
 .result{
 display:none;
-margin-top:30px;
-padding:25px;
-border-radius:22px;
+margin-top:25px;
+padding:22px;
+border-radius:20px;
 background:#071222;
 border:1px solid #29445f;
 }
 
 .verdict{
-font-size:32px;
+font-size:30px;
 font-weight:bold;
-margin:12px 0;
+margin:10px 0;
 }
 
 .score{
@@ -132,38 +122,32 @@ margin-bottom:18px;
 }
 
 .info-box{
-margin-top:22px;
-padding:20px;
-border-radius:18px;
+margin-top:18px;
+padding:18px;
+border-radius:17px;
 background:#101e30;
 border:1px solid #29445f;
 }
 
 .info-title{
-font-size:21px;
+font-size:20px;
 font-weight:bold;
 margin-bottom:10px;
 }
 
+ul{line-height:1.8}
+
 .urlrisk{
-font-size:24px;
+font-size:22px;
 font-weight:bold;
-margin:8px 0;
 }
 
 .report-box{
-margin-top:25px;
-padding:22px;
+margin-top:20px;
+padding:20px;
 border-radius:18px;
 background:#17283c;
 border:1px solid #29445f;
-}
-
-.report-button{
-background:#e85d5d;
-color:white;
-margin-top:12px;
-width:100%;
 }
 
 .report-note{
@@ -171,10 +155,17 @@ color:#a9bdd6;
 line-height:1.6;
 }
 
+.report-button{
+width:100%;
+background:#e85d5d;
+color:white;
+margin-top:10px;
+}
+
 .warning{
-margin-top:25px;
-padding:18px;
-border-radius:16px;
+margin-top:20px;
+padding:17px;
+border-radius:15px;
 background:#16263a;
 color:#a9bdd6;
 line-height:1.6;
@@ -184,14 +175,13 @@ line-height:1.6;
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:15px;
-margin-top:20px;
 }
 
 .stat{
 background:#071222;
 border:1px solid #29445f;
 border-radius:20px;
-padding:20px 10px;
+padding:20px 8px;
 text-align:center;
 }
 
@@ -202,39 +192,37 @@ color:#55d5ff;
 }
 
 .stat-label{
-font-size:15px;
 color:#a9bdd6;
 margin-top:8px;
+font-size:15px;
 }
 
 .analytics{
-margin-top:30px;
-padding:22px;
+margin-top:25px;
+padding:20px;
 background:#071222;
 border:1px solid #29445f;
 border-radius:20px;
 }
 
 .analytics-title{
-font-size:22px;
+font-size:23px;
 font-weight:bold;
 margin-bottom:20px;
 }
 
-.bar-row{
-margin:18px 0;
-}
+.bar-row{margin:18px 0}
 
 .bar-label{
 display:flex;
 justify-content:space-between;
-margin-bottom:8px;
+margin-bottom:7px;
 color:#a9bdd6;
 font-weight:bold;
 }
 
 .bar-bg{
-height:24px;
+height:22px;
 background:#16263a;
 border-radius:20px;
 overflow:hidden;
@@ -245,20 +233,12 @@ border:1px solid #29445f;
 height:100%;
 width:0%;
 border-radius:20px;
-transition:width .5s ease;
+transition:width .4s;
 }
 
-.high-bar{
-background:#e85d5d;
-}
-
-.suspicious-bar{
-background:#f0b84b;
-}
-
-.low-bar{
-background:#55d5ff;
-}
+.high-bar{background:#e85d5d}
+.suspicious-bar{background:#f0b84b}
+.low-bar{background:#55d5ff}
 
 .analytics-summary{
 margin-top:20px;
@@ -270,7 +250,7 @@ line-height:1.6;
 }
 
 .history-item{
-padding:18px;
+padding:17px;
 margin-top:12px;
 border-radius:16px;
 background:#071222;
@@ -278,8 +258,8 @@ border:1px solid #29445f;
 }
 
 .history-status{
-font-weight:bold;
 font-size:19px;
+font-weight:bold;
 margin-bottom:8px;
 }
 
@@ -293,52 +273,29 @@ color:#55d5ff;
 margin-top:7px;
 }
 
-.clear-history{
-margin-top:20px;
-background:#1b3149;
-color:#dcecff;
-}
-
-ul{
-line-height:1.8;
-}
+.clear-history{margin-top:18px}
 
 .footer{
 text-align:center;
 color:#71869f;
-margin-top:35px;
+margin-top:30px;
 line-height:1.5;
 }
 
 @media(max-width:600px){
 
-h1{
-font-size:34px;
-}
+h1{font-size:34px}
+.subtitle{font-size:17px}
+.card{padding:22px}
+label{font-size:21px}
 
-.subtitle{
-font-size:17px;
-}
-
-.card{
-padding:22px;
-}
-
-label{
-font-size:21px;
-}
-
-textarea{
-font-size:16px;
-}
+textarea{font-size:16px}
 
 .dashboard{
 grid-template-columns:repeat(2,1fr);
 }
 
-button{
-width:100%;
-}
+button{width:100%}
 
 }
 </style>
@@ -376,7 +333,7 @@ placeholder="Paste the suspicious message or URL here..."
 🔎 Check Now
 </button>
 
-<button class="clear" onclick="clearAll()">
+<button class="clear" onclick="clearInput()">
 Clear
 </button>
 
@@ -386,15 +343,15 @@ Clear
 <div class="demo-buttons">
 
 <button class="demo" onclick="demoBank()">
-Bank account warning
+🏦 Bank account warning
 </button>
 
 <button class="demo" onclick="demoPrize()">
-Prize scam
+🎁 Prize scam
 </button>
 
 <button class="demo" onclick="demoNormal()">
-Normal message
+💬 Normal message
 </button>
 
 </div>
@@ -419,9 +376,7 @@ Normal message
 🎯 Threat Type
 </div>
 
-<div id="threatType">
-No specific threat type detected
-</div>
+<div id="threatType"></div>
 
 </div>
 
@@ -524,7 +479,6 @@ organisation's official website/app or a trusted contact.
 Your scan statistics
 </p>
 
-
 <div class="dashboard">
 
 <div class="stat">
@@ -555,7 +509,6 @@ Your scan statistics
 <div class="analytics-title">
 📈 Risk Analytics
 </div>
-
 
 <div class="bar-row">
 
@@ -599,10 +552,7 @@ Your scan statistics
 </div>
 
 
-<div
-id="analyticsSummary"
-class="analytics-summary"
->
+<div id="analyticsSummary" class="analytics-summary">
 No scans available yet.
 </div>
 
@@ -615,7 +565,7 @@ No scans available yet.
 
 <div class="card">
 
-<h2>📊 Scan History</h2>
+<h2>📋 Scan History</h2>
 
 <p id="historyEmpty">
 No scans yet. Your previous scam checks will appear here.
@@ -646,7 +596,7 @@ Built for safer digital decisions
 <script>
 
 /* =========================
-   STORAGE
+   HISTORY STORAGE
 ========================= */
 
 var scanHistory = [];
@@ -660,13 +610,13 @@ localStorage.getItem("scamShieldHistory")
 
 }catch(error){
 
-scanHistory=[];
+scanHistory = [];
 
 }
 
 
 /* =========================
-   HELPER FUNCTIONS
+   HELPERS
 ========================= */
 
 function hasAny(text,words){
@@ -686,7 +636,7 @@ return false;
 
 function addUnique(arr,value){
 
-if(arr.indexOf(value)===-1){
+if(arr.indexOf(value) === -1){
 arr.push(value);
 }
 
@@ -706,16 +656,15 @@ return String(text)
 
 
 /* =========================
-   MAIN ANALYZER
+   ANALYZE
 ========================= */
 
 function analyze(){
 
-var input=document.getElementById("input");
+var message =
+document.getElementById("input").value.trim();
 
-var message=input.value.trim();
-
-if(message===""){
+if(message === ""){
 
 alert("Please paste a suspicious message or URL first.");
 
@@ -723,22 +672,20 @@ return;
 
 }
 
+var text = message.toLowerCase();
 
-var text=message.toLowerCase();
+var score = 0;
 
-var score=0;
+var signs = [];
 
-var signs=[];
+var why = [];
 
-var why=[];
-
-var threatTypes=[];
+var threatTypes = [];
 
 
 /* URGENCY */
 
 if(hasAny(text,[
-
 "urgent",
 "immediately",
 "act now",
@@ -751,12 +698,10 @@ if(hasAny(text,[
 "expires today",
 "do it now",
 "quickly",
-"urgent action",
-"limited time"
-
+"urgent action"
 ])){
 
-score+=18;
+score += 18;
 
 addUnique(
 signs,
@@ -774,7 +719,6 @@ why,
 /* SENSITIVE INFORMATION */
 
 if(hasAny(text,[
-
 "otp",
 "one time password",
 "password",
@@ -785,10 +729,9 @@ if(hasAny(text,[
 "verification code",
 "atm pin",
 "upi pin"
-
 ])){
 
-score+=28;
+score += 28;
 
 addUnique(
 signs,
@@ -806,7 +749,6 @@ why,
 /* BANK / KYC */
 
 if(hasAny(text,[
-
 "bank",
 "kyc",
 "account",
@@ -819,10 +761,9 @@ if(hasAny(text,[
 "internet banking",
 "debit card",
 "credit card"
-
 ])){
 
-score+=15;
+score += 15;
 
 addUnique(
 signs,
@@ -845,7 +786,6 @@ threatTypes,
 /* PAYMENT */
 
 if(hasAny(text,[
-
 "pay",
 "payment",
 "processing fee",
@@ -857,10 +797,9 @@ if(hasAny(text,[
 "refund fee",
 "claim fee",
 "pay now"
-
 ])){
 
-score+=18;
+score += 18;
 
 addUnique(
 signs,
@@ -883,7 +822,6 @@ threatTypes,
 /* UPI */
 
 if(hasAny(text,[
-
 "upi",
 "upi id",
 "upi pin",
@@ -894,10 +832,9 @@ if(hasAny(text,[
 "gpay",
 "scan qr",
 "qr code"
-
 ])){
 
-score+=20;
+score += 20;
 
 addUnique(
 signs,
@@ -920,7 +857,6 @@ threatTypes,
 /* PRIZE */
 
 if(hasAny(text,[
-
 "prize",
 "winner",
 "you won",
@@ -932,10 +868,9 @@ if(hasAny(text,[
 "gift card",
 "congratulations",
 "lucky winner"
-
 ])){
 
-score+=24;
+score += 24;
 
 addUnique(
 signs,
@@ -955,10 +890,9 @@ threatTypes,
 }
 
 
-/* THREATS */
+/* THREAT */
 
 if(hasAny(text,[
-
 "police",
 "cbi",
 "court",
@@ -972,10 +906,9 @@ if(hasAny(text,[
 "criminal case",
 "customs",
 "investigation"
-
 ])){
 
-score+=28;
+score += 28;
 
 addUnique(
 signs,
@@ -998,7 +931,6 @@ threatTypes,
 /* PHISHING */
 
 if(hasAny(text,[
-
 "login",
 "log in",
 "sign in",
@@ -1011,10 +943,9 @@ if(hasAny(text,[
 "click to verify",
 "click here to login",
 "confirm your account"
-
 ])){
 
-score+=22;
+score += 22;
 
 addUnique(
 signs,
@@ -1037,7 +968,6 @@ threatTypes,
 /* REMOTE ACCESS */
 
 if(hasAny(text,[
-
 "anydesk",
 "teamviewer",
 "remote access",
@@ -1046,10 +976,9 @@ if(hasAny(text,[
 "install app",
 "download app",
 "remote control"
-
 ])){
 
-score+=30;
+score += 30;
 
 addUnique(
 signs,
@@ -1072,7 +1001,6 @@ threatTypes,
 /* IMPERSONATION */
 
 if(hasAny(text,[
-
 "customer care",
 "support team",
 "bank officer",
@@ -1081,10 +1009,9 @@ if(hasAny(text,[
 "amazon support",
 "flipkart support",
 "official team"
-
 ])){
 
-score+=12;
+score += 12;
 
 addUnique(
 signs,
@@ -1104,19 +1031,14 @@ threatTypes,
 }
 
 
-/* MONEY AMOUNT */
+/* MONEY */
 
 if(
-
-/(?:₹|rs\.?|inr)\s?\d+/i.test(message)
-
-||
-
+/(?:₹|rs\.?|inr)\s?\d+/i.test(message) ||
 /\d{1,3}(?:,\d{3})+(?:\.\d+)?/.test(message)
-
 ){
 
-score+=10;
+score += 10;
 
 addUnique(
 signs,
@@ -1131,14 +1053,14 @@ why,
 }
 
 
-/* PHONE NUMBER */
+/* PHONE */
 
 var phonePattern =
 /(?:\+91[\s-]?)?[6-9]\d{9}/;
 
 if(phonePattern.test(message)){
 
-score+=8;
+score += 8;
 
 addUnique(
 signs,
@@ -1158,17 +1080,19 @@ why,
 var urlPattern =
 /(https?:\/\/[^\s]+|www\.[^\s]+|(?:bit\.ly|tinyurl\.com|t\.co|shorturl\.at)\/[^\s]+)/i;
 
-var hasURL=urlPattern.test(message);
+var hasURL =
+urlPattern.test(message);
 
-var urlRisk="No URL detected";
+var urlRisk =
+"No URL detected";
 
-var urlDetails=
+var urlDetails =
 "The message does not appear to contain a URL.";
 
 
 if(hasURL){
 
-score+=15;
+score += 15;
 
 addUnique(
 signs,
@@ -1181,82 +1105,85 @@ why,
 );
 
 
-var shortLink =
-/bit\.ly|tinyurl\.com|t\.co|shorturl/i.test(message);
+if(
+/bit\.ly|tinyurl\.com|t\.co|shorturl/i
+.test(message)
+){
 
-var ipURL =
-/https?:\/\/(?:\d{1,3}\.){3}\d{1,3}/i.test(message);
+score += 20;
 
-var punycode =
-/xn--/i.test(message);
+urlRisk =
+"🚨 HIGH RISK";
 
-var httpURL =
-/http:\/\//i.test(message);
-
-var suspiciousURL =
-/login|verify|secure|account|kyc|payment|refund|claim|reward/i.test(message);
-
-
-if(shortLink){
-
-score+=20;
-
-urlRisk="🚨 HIGH RISK";
-
-urlDetails=
+urlDetails =
 "A shortened URL was detected. It can hide the real destination.";
 
 }
 
-else if(ipURL){
+else if(
+/https?:\/\/(?:\d{1,3}\.){3}\d{1,3}/i
+.test(message)
+){
 
-score+=25;
+score += 25;
 
-urlRisk="🚨 HIGH RISK";
+urlRisk =
+"🚨 HIGH RISK";
 
-urlDetails=
+urlDetails =
 "The URL uses an IP address instead of a normal domain name.";
 
 }
 
-else if(punycode){
+else if(
+/xn--/i.test(message)
+){
 
-score+=25;
+score += 25;
 
-urlRisk="🚨 HIGH RISK";
+urlRisk =
+"🚨 HIGH RISK";
 
-urlDetails=
-"The URL contains a punycode domain pattern that deserves extra verification.";
+urlDetails =
+"The URL contains a punycode domain pattern.";
 
 }
 
-else if(httpURL){
+else if(
+/http:\/\//i.test(message)
+){
 
-score+=15;
+score += 15;
 
-urlRisk="⚠️ SUSPICIOUS";
+urlRisk =
+"⚠️ SUSPICIOUS";
 
-urlDetails=
+urlDetails =
 "The URL uses HTTP instead of HTTPS.";
 
 }
 
-else if(suspiciousURL){
+else if(
+/login|verify|secure|account|kyc|payment|refund|claim|reward/i
+.test(message)
+){
 
-score+=10;
+score += 10;
 
-urlRisk="⚠️ SUSPICIOUS";
+urlRisk =
+"⚠️ SUSPICIOUS";
 
-urlDetails=
-"The URL contains login, verification, payment or account-related terms. Verify the domain carefully.";
+urlDetails =
+"The URL contains login, verification, payment or account-related terms.";
 
 }
 
 else{
 
-urlRisk="🟡 CHECK CAREFULLY";
+urlRisk =
+"🟡 CHECK CAREFULLY";
 
-urlDetails=
+urlDetails =
 "HTTPS or a normal-looking URL does not guarantee that the website is safe. Verify the domain.";
 
 }
@@ -1264,36 +1191,31 @@ urlDetails=
 }
 
 
-/* PRESSURE + MONEY */
+/* URGENCY + MONEY */
 
-var pressureAndMoney =
+if(
 
 hasAny(text,[
-
 "urgent",
 "immediately",
 "act now",
 "today"
-
 ])
 
 &&
 
 hasAny(text,[
-
 "pay",
 "payment",
 "fee",
 "transfer",
 "upi",
 "money"
+])
 
-]);
+){
 
-
-if(pressureAndMoney){
-
-score+=12;
+score += 12;
 
 addUnique(
 signs,
@@ -1313,29 +1235,25 @@ why,
 if(
 
 hasAny(text,[
-
 "refund",
 "cashback",
 "refund pending",
 "refund claim"
-
 ])
 
 &&
 
 hasAny(text,[
-
 "click",
 "verify",
 "otp",
 "upi",
 "pay"
-
 ])
 
 ){
 
-score+=18;
+score += 18;
 
 addUnique(
 signs,
@@ -1355,12 +1273,10 @@ threatTypes,
 }
 
 
-/* LIMIT SCORE */
+/* MAX SCORE */
 
-if(score>100){
-
-score=100;
-
+if(score > 100){
+score = 100;
 }
 
 
@@ -1369,7 +1285,7 @@ score=100;
 var threatType =
 "No specific threat type detected";
 
-if(threatTypes.length>0){
+if(threatTypes.length > 0){
 
 threatType =
 threatTypes.join(" + ");
@@ -1379,55 +1295,56 @@ threatTypes.join(" + ");
 
 /* VERDICT */
 
-var verdict="";
+var verdict;
+var summary;
 
-var summary="";
 
+if(score >= 60){
 
-if(score>=60){
+verdict =
+"🚨 HIGH RISK";
 
-verdict="🚨 HIGH RISK";
-
-summary=
+summary =
 "This message contains multiple scam warning signs. Do not click suspicious links or share OTP, PIN, CVV, passwords or payment credentials.";
 
 }
 
-else if(score>=30){
+else if(score >= 30){
 
-verdict="⚠️ SUSPICIOUS";
+verdict =
+"⚠️ SUSPICIOUS";
 
-summary=
+summary =
 "This message contains suspicious characteristics. Verify the sender, website and request independently before taking action.";
 
 }
 
 else{
 
-verdict="✅ LOW RISK";
+verdict =
+"✅ LOW RISK";
 
-summary=
+summary =
 "No strong scam signals were detected. However, always verify unexpected messages independently.";
 
 }
 
 
-/* WHY LIST */
+/* WHY HTML */
 
-var whyHTML="";
+var whyHTML = "";
 
-if(why.length===0){
+if(why.length === 0){
 
-whyHTML=
+whyHTML =
 "<li>No major suspicious characteristics were detected.</li>";
 
 }
-
 else{
 
 for(var i=0;i<why.length;i++){
 
-whyHTML+=
+whyHTML +=
 "<li>"+escapeHTML(why[i])+"</li>";
 
 }
@@ -1435,22 +1352,21 @@ whyHTML+=
 }
 
 
-/* SIGNS */
+/* SIGNS HTML */
 
-var signsHTML="";
+var signsHTML = "";
 
-if(signs.length===0){
+if(signs.length === 0){
 
-signsHTML=
+signsHTML =
 "<li>No obvious warning signs detected.</li>";
 
 }
-
 else{
 
 for(var j=0;j<signs.length;j++){
 
-signsHTML+=
+signsHTML +=
 "<li>"+escapeHTML(signs[j])+"</li>";
 
 }
@@ -1464,7 +1380,7 @@ document.getElementById("verdict").innerText =
 verdict;
 
 document.getElementById("score").innerText =
-"Risk Score: "+score+" / 100";
+"Risk Score: " + score + " / 100";
 
 document.getElementById("summary").innerText =
 summary;
@@ -1486,13 +1402,13 @@ urlDetails;
 
 document.getElementById("actions").innerHTML =
 
-"<li>Do not share OTP, PIN, CVV or passwords.</li>"+
+"<li>Do not share OTP, PIN, CVV or passwords.</li>" +
 
-"<li>Do not click unknown or suspicious links.</li>"+
+"<li>Do not click unknown or suspicious links.</li>" +
 
-"<li>Never give remote access to an unknown person.</li>"+
+"<li>Never give remote access to an unknown person.</li>" +
 
-"<li>Verify the organisation using its official website or app.</li>"+
+"<li>Verify the organisation using its official website or app.</li>" +
 
 "<li>If money was lost, contact your bank and call 1930.</li>";
 
@@ -1515,7 +1431,8 @@ renderHistory();
 updateDashboard();
 
 
-document.getElementById("result").scrollIntoView({
+document.getElementById("result")
+.scrollIntoView({
 behavior:"smooth"
 });
 
@@ -1523,7 +1440,23 @@ behavior:"smooth"
 
 
 /* =========================
-   HISTORY
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(text){
+
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   SAVE HISTORY
 ========================= */
 
 function saveHistory(
@@ -1533,31 +1466,24 @@ score,
 threatType
 ){
 
-var item={
+var item = {
 
 message:message,
-
 verdict:verdict,
-
 score:score,
-
 threatType:threatType,
-
 time:new Date().toLocaleString()
 
 };
 
-
 scanHistory.unshift(item);
 
-
-if(scanHistory.length>10){
+if(scanHistory.length > 10){
 
 scanHistory =
 scanHistory.slice(0,10);
 
 }
-
 
 try{
 
@@ -1588,60 +1514,219 @@ var empty =
 document.getElementById("historyEmpty");
 
 
-if(scanHistory.length===0){
+if(scanHistory.length === 0){
 
-empty.style.display="block";
+empty.style.display = "block";
 
-list.innerHTML="";
+list.innerHTML = "";
 
 return;
 
 }
 
 
-empty.style.display="none";
+empty.style.display = "none";
 
-
-var html="";
+var html = "";
 
 
 for(var i=0;i<scanHistory.length;i++){
 
-var item=scanHistory[i];
+var item = scanHistory[i];
 
+html +=
 
-html+=
+'<div class="history-item">' +
 
-'<div class="history-item">'+
+'<div class="history-status">' +
+escapeHTML(item.verdict) +
+'</div>' +
 
-'<div class="history-status">'+
-escapeHTML(item.verdict)+
-'</div>'+
+'<div class="history-text">' +
+escapeHTML(item.message) +
+'</div>' +
 
-'<div class="history-text">'+
-escapeHTML(item.message)+
-'</div>'+
+'<div class="history-score">' +
+"Risk Score: " + item.score + " / 100" +
+'</div>' +
 
-'<div class="history-score">'+
-"Risk Score: "+item.score+" / 100"+
-'</div>'+
+'<div>' +
+"🎯 " + escapeHTML(item.threatType) +
+'</div>' +
 
-'<div>'+
-"🎯 "+escapeHTML(item.threatType)+
-'</div>'+
-
-'<small>'+
-escapeHTML(item.time)+
-'</small>'+
+'<small>' +
+escapeHTML(item.time) +
+'</small>' +
 
 '</div>';
 
 }
 
 
-list.innerHTML=html;
+list.innerHTML = html;
 
 }
 
 
-/
+/* =========================
+   DASHBOARD
+========================= */
+var total = scanHistory.length;
+
+var high = 0;
+var suspicious = 0;
+var low = 0;
+
+for(var i = 0; i < scanHistory.length; i++){
+
+    if(scanHistory[i].verdict.includes("HIGH RISK")){
+        high++;
+    }
+    else if(scanHistory[i].verdict.includes("SUSPICIOUS")){
+        suspicious++;
+    }
+    else if(scanHistory[i].verdict.includes("LOW RISK")){
+        low++;
+    }
+}
+
+document.getElementById("totalCount").innerText = total;
+document.getElementById("highCount").innerText = high;
+document.getElementById("suspiciousCount").innerText = suspicious;
+document.getElementById("lowCount").innerText = low;
+
+var highPercent =
+total ? Math.round((high / total) * 100) : 0;
+
+var suspiciousPercent =
+total ? Math.round((suspicious / total) * 100) : 0;
+
+var lowPercent =
+total ? Math.round((low / total) * 100) : 0;
+
+document.getElementById("highPercent").innerText =
+highPercent + "%";
+
+document.getElementById("suspiciousPercent").innerText =
+suspiciousPercent + "%";
+
+document.getElementById("lowPercent").innerText =
+lowPercent + "%";
+
+document.getElementById("highBar").style.width =
+highPercent + "%";
+
+document.getElementById("suspiciousBar").style.width =
+suspiciousPercent + "%";
+
+document.getElementById("lowBar").style.width =
+lowPercent + "%";
+
+if(total === 0){
+
+document.getElementById("analyticsSummary").innerText =
+"No scans available yet.";
+
+}
+else{
+
+document.getElementById("analyticsSummary").innerText =
+"Out of " + total +
+" scans, " + high +
+" were High Risk, " +
+suspicious +
+" were Suspicious, and " +
+low +
+" were Low Risk.";
+
+}
+
+}
+
+
+/* CLEAR INPUT */
+
+function clearInput(){
+
+document.getElementById("input").value = "";
+
+document.getElementById("result").style.display = "none";
+
+}
+
+
+/* CLEAR HISTORY */
+
+function clearHistory(){
+
+scanHistory = [];
+
+localStorage.removeItem("scamShieldHistory");
+
+renderHistory();
+updateDashboard();
+
+}
+
+
+/* DEMO BANK */
+
+function demoBank(){
+
+document.getElementById("input").value =
+"URGENT: Your bank account will be blocked today. " +
+"Verify KYC immediately and enter your OTP.";
+
+analyze();
+
+}
+
+
+/* DEMO PRIZE */
+
+function demoPrize(){
+
+document.getElementById("input").value =
+"Congratulations! You are a lucky winner. " +
+"You won a cash prize of Rs 50,000. " +
+"Pay a small processing fee to claim your reward.";
+
+analyze();
+
+}
+
+
+/* DEMO NORMAL */
+
+function demoNormal(){
+
+document.getElementById("input").value =
+"Hi, today's class starts at 10 AM. " +
+"Please bring your notebook.";
+
+analyze();
+
+}
+
+
+/* REPORT */
+
+function reportScam(){
+
+window.open(
+"https://cybercrime.gov.in/",
+"_blank"
+);
+
+}
+
+
+/* INITIAL LOAD */
+
+renderHistory();
+updateDashboard();
+
+</script>
+
+</body>
+</html>
