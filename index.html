@@ -3,186 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ScamShield AI</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#061121;
-  color:#eaf3ff;
+margin:0;
+font-family:Arial,sans-serif;
+background:#061121;
+color:#eaf3ff
 }
 
 .container{
-  width:92%;
-  max-width:900px;
-  margin:auto;
-  padding:45px 0;
+width:92%;
+max-width:900px;
+margin:auto;
+padding:40px 0
 }
 
 h1{
-  text-align:center;
-  font-size:42px;
-  margin-bottom:12px;
-  color:#55d5ff;
+text-align:center;
+font-size:42px;
+color:#55d5ff;
+margin-bottom:12px
 }
 
 .subtitle{
-  text-align:center;
-  color:#a9bdd6;
-  font-size:20px;
-  line-height:1.6;
-  margin-bottom:40px;
+text-align:center;
+color:#a9bdd6;
+font-size:20px;
+line-height:1.6;
+margin-bottom:35px
 }
 
 .card{
-  background:#101e30;
-  border:1px solid #29445f;
-  border-radius:28px;
-  padding:35px;
-  box-shadow:0 15px 40px rgba(0,0,0,.25);
+background:#101e30;
+border:1px solid #29445f;
+border-radius:28px;
+padding:35px
 }
 
 label{
-  display:block;
-  font-size:24px;
-  font-weight:bold;
-  margin-bottom:20px;
+display:block;
+font-size:24px;
+font-weight:bold;
+margin-bottom:18px
 }
 
 textarea{
-  width:100%;
-  min-height:260px;
-  resize:vertical;
-  padding:22px;
-  border-radius:24px;
-  border:1px solid #29445f;
-  background:#071222;
-  color:#eaf3ff;
-  font-size:18px;
-  line-height:1.5;
-  outline:none;
+width:100%;
+min-height:250px;
+padding:20px;
+border-radius:22px;
+border:1px solid #29445f;
+background:#071222;
+color:#eaf3ff;
+font-size:18px;
+line-height:1.5;
+outline:none
 }
 
-textarea:focus{
-  border-color:#55d5ff;
-}
-
-.buttons{
-  display:flex;
-  gap:15px;
-  margin-top:22px;
-  flex-wrap:wrap;
+.buttons,.demo-buttons{
+display:flex;
+flex-wrap:wrap;
+gap:14px;
+margin-top:20px
 }
 
 button{
-  border:none;
-  border-radius:18px;
-  padding:17px 28px;
-  font-size:18px;
-  font-weight:bold;
-  cursor:pointer;
+border:none;
+border-radius:18px;
+padding:16px 25px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer
 }
 
 .check{
-  background:#55d5ff;
-  color:#061121;
+background:#55d5ff;
+color:#061121
 }
 
 .clear{
-  background:#1b3149;
-  color:#dcecff;
+background:#1b3149;
+color:#dcecff
 }
 
-.demo-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:28px;
-}
-
-.demo-buttons button{
-  background:#101e30;
-  border:1px solid #29445f;
-  color:#a9bdd6;
-  padding:12px 18px;
+.demo{
+background:#101e30;
+border:1px solid #29445f;
+color:#a9bdd6
 }
 
 .result{
-  display:none;
-  margin-top:30px;
-  padding:25px;
-  border-radius:22px;
-  background:#071222;
-  border:1px solid #29445f;
+display:none;
+margin-top:30px;
+padding:25px;
+border-radius:22px;
+background:#071222;
+border:1px solid #29445f
 }
 
-.result h2{
-  margin-top:0;
-}
+.result h2{margin-top:0}
 
 .verdict{
-  font-size:32px;
-  font-weight:bold;
-  margin:10px 0;
+font-size:32px;
+font-weight:bold;
+margin:12px 0
 }
 
 .score{
-  font-size:22px;
-  color:#55d5ff;
-  margin-bottom:20px;
+font-size:22px;
+color:#55d5ff;
+margin-bottom:18px
 }
 
-.result ul{
-  line-height:1.8;
+.urlbox{
+margin-top:25px;
+padding:20px;
+border-radius:18px;
+background:#101e30;
+border:1px solid #29445f
+}
+
+.urlrisk{
+font-size:25px;
+font-weight:bold;
+margin:10px 0
+}
+
+ul{
+line-height:1.8
 }
 
 .warning{
-  margin-top:25px;
-  padding:18px;
-  border-radius:16px;
-  background:#16263a;
-  color:#a9bdd6;
-  line-height:1.6;
+margin-top:25px;
+padding:18px;
+border-radius:16px;
+background:#16263a;
+color:#a9bdd6;
+line-height:1.6
 }
 
 .footer{
-  text-align:center;
-  color:#71869f;
-  margin-top:40px;
-  line-height:1.5;
+text-align:center;
+color:#71869f;
+margin-top:35px;
+line-height:1.5
 }
 
 @media(max-width:600px){
-  h1{
-    font-size:34px;
-  }
-
-  .subtitle{
-    font-size:17px;
-  }
-
-  .card{
-    padding:22px;
-  }
-
-  label{
-    font-size:21px;
-  }
-
-  textarea{
-    min-height:250px;
-    font-size:16px;
-  }
-
-  button{
-    width:auto;
-  }
+h1{font-size:34px}
+.subtitle{font-size:17px}
+.card{padding:22px}
+label{font-size:21px}
+textarea{font-size:16px}
 }
 </style>
 </head>
@@ -203,7 +179,8 @@ and explains what you should do next.
 
 <label for="input">Paste suspicious message or URL</label>
 
-<textarea id="input" placeholder="Paste the suspicious message here..."></textarea>
+<textarea id="input"
+placeholder="Paste the suspicious message or URL here..."></textarea>
 
 <div class="buttons">
 <button class="check" onclick="analyze()">🔎 Check Now</button>
@@ -211,13 +188,9 @@ and explains what you should do next.
 </div>
 
 <div class="demo-buttons">
-
-<button onclick="demoBank()">Bank account warning</button>
-
-<button onclick="demoPrize()">Prize scam</button>
-
-<button onclick="demoNormal()">Normal message</button>
-
+<button class="demo" onclick="demoBank()">Bank account warning</button>
+<button class="demo" onclick="demoPrize()">Prize scam</button>
+<button class="demo" onclick="demoNormal()">Normal message</button>
 </div>
 
 <div id="result" class="result">
@@ -231,12 +204,16 @@ and explains what you should do next.
 <p id="summary"></p>
 
 <h3>⚠️ Warning Signs</h3>
-
 <ul id="signs"></ul>
 
 <h3>✅ What You Should Do</h3>
-
 <ul id="actions"></ul>
+
+<div class="urlbox">
+<h3>🔗 URL Risk Analysis</h3>
+<div id="urlrisk" class="urlrisk">No URL detected</div>
+<p id="urldetails"></p>
+</div>
 
 </div>
 
@@ -260,226 +237,266 @@ Built for safer digital decisions
 
 function analyze(){
 
-    var message = document.getElementById("input").value.trim();
+var message=document.getElementById("input").value.trim();
 
-    if(message === ""){
-        alert("Please paste a suspicious message or URL first.");
-        return;
-    }
-
-    var text = message.toLowerCase();
-
-    var score = 0;
-    var signs = [];
-
-    /* Urgency */
-    if(
-        text.includes("urgent") ||
-        text.includes("immediately") ||
-        text.includes("act now") ||
-        text.includes("today") ||
-        text.includes("within")
-    ){
-        score += 20;
-        signs.push("Urgency or pressure language detected");
-    }
-
-    /* Sensitive information */
-    if(
-        text.includes("otp") ||
-        text.includes("password") ||
-        text.includes("pin") ||
-        text.includes("cvv") ||
-        text.includes("passcode")
-    ){
-        score += 25;
-        signs.push("Possible request for sensitive information");
-    }
-
-    /* Bank / KYC */
-    if(
-        text.includes("bank") ||
-        text.includes("kyc") ||
-        text.includes("account") ||
-        text.includes("blocked") ||
-        text.includes("verify")
-    ){
-        score += 15;
-        signs.push("Bank, KYC or account verification language");
-    }
-
-    /* Prize */
-    if(
-        text.includes("prize") ||
-        text.includes("winner") ||
-        text.includes("won") ||
-        text.includes("lottery") ||
-        text.includes("reward") ||
-        text.includes("congratulations")
-    ){
-        score += 25;
-        signs.push("Prize or reward bait detected");
-    }
-
-    /* Money */
-    if(
-        text.includes("pay") ||
-        text.includes("payment") ||
-        text.includes("fee") ||
-        text.includes("send money") ||
-        text.includes("transfer")
-    ){
-        score += 20;
-        signs.push("Money or payment request detected");
-    }
-
-    /* Links */
-    if(
-        text.includes("http://") ||
-        text.includes("https://") ||
-        text.includes("www.") ||
-        text.includes(".com") ||
-        text.includes(".in") ||
-        text.includes("bit.ly")
-    ){
-        score += 20;
-        signs.push("Link or URL detected");
-    }
-
-    /* Threat / authority */
-    if(
-        text.includes("police") ||
-        text.includes("cbi") ||
-        text.includes("court") ||
-        text.includes("legal action") ||
-        text.includes("digital arrest")
-    ){
-        score += 25;
-        signs.push("Threat or authority-related language detected");
-    }
-
-    /* Limit score */
-    if(score > 100){
-        score = 100;
-    }
-
-
-    var verdict = "";
-    var summary = "";
-
-    if(score >= 60){
-
-        verdict = "🚨 HIGH RISK";
-
-        summary =
-        "This message contains multiple scam warning signs. " +
-        "Do not click suspicious links or share OTP, PIN, CVV or passwords.";
-
-    }
-    else if(score >= 30){
-
-        verdict = "⚠️ SUSPICIOUS";
-
-        summary =
-        "This message contains some suspicious characteristics. " +
-        "Verify the sender and request before taking any action.";
-
-    }
-    else{
-
-        verdict = "✅ LOW RISK";
-
-        summary =
-        "No strong scam signals were detected. " +
-        "However, always verify unexpected messages independently.";
-
-    }
-
-
-    document.getElementById("verdict").innerText = verdict;
-
-    document.getElementById("score").innerText =
-        "Risk Score: " + score + " / 100";
-
-    document.getElementById("summary").innerText = summary;
-
-
-    var signsHTML = "";
-
-    if(signs.length === 0){
-
-        signsHTML =
-        "<li>No obvious warning signs detected.</li>";
-
-    }
-    else{
-
-        for(var i = 0; i < signs.length; i++){
-
-            signsHTML +=
-            "<li>" + signs[i] + "</li>";
-
-        }
-
-    }
-
-    document.getElementById("signs").innerHTML = signsHTML;
-
-
-    document.getElementById("actions").innerHTML =
-        "<li>Do not share OTP, PIN, CVV or passwords.</li>" +
-        "<li>Do not click unknown or suspicious links.</li>" +
-        "<li>Verify the organisation using its official website or app.</li>" +
-        "<li>If money was lost, contact your bank and call 1930.</li>";
-
-
-    document.getElementById("result").style.display = "block";
-
-    /* Scroll to result */
-    document.getElementById("result").scrollIntoView({
-        behavior:"smooth"
-    });
+if(message===""){
+alert("Please paste a suspicious message or URL first.");
+return;
 }
 
+var text=message.toLowerCase();
+var score=0;
+var signs=[];
+
+
+/* Scam checks */
+
+if(
+text.includes("urgent") ||
+text.includes("immediately") ||
+text.includes("act now") ||
+text.includes("today") ||
+text.includes("within")
+){
+score+=20;
+signs.push("Urgency or pressure language detected");
+}
+
+if(
+text.includes("otp") ||
+text.includes("password") ||
+text.includes("pin") ||
+text.includes("cvv") ||
+text.includes("passcode")
+){
+score+=25;
+signs.push("Possible request for sensitive information");
+}
+
+if(
+text.includes("bank") ||
+text.includes("kyc") ||
+text.includes("account") ||
+text.includes("blocked") ||
+text.includes("verify")
+){
+score+=15;
+signs.push("Bank, KYC or account verification language");
+}
+
+if(
+text.includes("prize") ||
+text.includes("winner") ||
+text.includes("won") ||
+text.includes("lottery") ||
+text.includes("reward") ||
+text.includes("congratulations")
+){
+score+=25;
+signs.push("Prize or reward bait detected");
+}
+
+if(
+text.includes("pay") ||
+text.includes("payment") ||
+text.includes("fee") ||
+text.includes("send money") ||
+text.includes("transfer")
+){
+score+=20;
+signs.push("Money or payment request detected");
+}
+
+if(
+text.includes("police") ||
+text.includes("cbi") ||
+text.includes("court") ||
+text.includes("legal action") ||
+text.includes("digital arrest")
+){
+score+=25;
+signs.push("Threat or authority-related language detected");
+}
+
+
+/* URL analysis */
+
+var hasURL=
+text.includes("http://") ||
+text.includes("https://") ||
+text.includes("www.") ||
+text.includes("bit.ly") ||
+text.includes("tinyurl");
+
+var urlRisk="No URL detected";
+var urlDetails="The message does not appear to contain a URL.";
+
+if(hasURL){
+
+score+=20;
+signs.push("Link or URL detected");
+
+var shortLink=
+text.includes("bit.ly") ||
+text.includes("tinyurl") ||
+text.includes("t.co") ||
+text.includes("shorturl");
+
+var https=text.includes("https://");
+
+if(shortLink){
+
+urlRisk="⚠️ HIGH RISK";
+urlDetails="A shortened URL was detected. Shortened links can hide the real destination.";
+
+}
+else if(!https){
+
+urlRisk="⚠️ SUSPICIOUS";
+urlDetails="A URL was detected without HTTPS. Verify the destination before opening it.";
+
+}
+else{
+
+urlRisk="🟡 CHECK CAREFULLY";
+urlDetails="HTTPS is present, but HTTPS alone does not prove that a website is safe.";
+
+}
+
+}
+
+
+if(score>100){
+score=100;
+}
+
+
+/* Verdict */
+
+var verdict;
+var summary;
+
+if(score>=60){
+
+verdict="🚨 HIGH RISK";
+
+summary=
+"This message contains multiple scam warning signs. Do not click suspicious links or share OTP, PIN, CVV or passwords.";
+
+}
+else if(score>=30){
+
+verdict="⚠️ SUSPICIOUS";
+
+summary=
+"This message contains some suspicious characteristics. Verify the sender and request before taking any action.";
+
+}
+else{
+
+verdict="✅ LOW RISK";
+
+summary=
+"No strong scam signals were detected. However, always verify unexpected messages independently.";
+
+}
+
+
+/* Display */
+
+document.getElementById("verdict").innerText=verdict;
+
+document.getElementById("score").innerText=
+"Risk Score: "+score+" / 100";
+
+document.getElementById("summary").innerText=summary;
+
+
+var signsHTML="";
+
+if(signs.length===0){
+
+signsHTML="<li>No obvious warning signs detected.</li>";
+
+}
+else{
+
+for(var i=0;i<signs.length;i++){
+signsHTML+="<li>"+signs[i]+"</li>";
+}
+
+}
+
+document.getElementById("signs").innerHTML=signsHTML;
+
+document.getElementById("actions").innerHTML=
+"<li>Do not share OTP, PIN, CVV or passwords.</li>"+
+"<li>Do not click unknown or suspicious links.</li>"+
+"<li>Verify the organisation using its official website or app.</li>"+
+"<li>If money was lost, contact your bank and call 1930.</li>";
+
+document.getElementById("urlrisk").innerText=urlRisk;
+
+document.getElementById("urldetails").innerText=urlDetails;
+
+document.getElementById("result").style.display="block";
+
+document.getElementById("result").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/* Clear */
 
 function clearAll(){
 
-    document.getElementById("input").value = "";
+document.getElementById("input").value="";
 
-    document.getElementById("result").style.display = "none";
+document.getElementById("result").style.display="none";
 
 }
 
+
+/* Demo 1 */
 
 function demoBank(){
 
-    document.getElementById("input").value =
-    "URGENT: Your bank account will be blocked today. " +
-    "Verify KYC immediately by clicking https://example.com " +
-    "and enter your OTP.";
+document.getElementById("input").value=
+"URGENT: Your bank account will be blocked today. "+
+"Verify KYC immediately by clicking https://example.com "+
+"and enter your OTP.";
 
-    analyze();
+analyze();
+
 }
 
+
+/* Demo 2 */
 
 function demoPrize(){
 
-    document.getElementById("input").value =
-    "Congratulations! You have won Rs.5,00,000 prize. " +
-    "Pay Rs.2,999 processing fee to claim your reward. " +
-    "Click https://example.com";
+document.getElementById("input").value=
+"Congratulations! You have won Rs.5,00,000 prize. "+
+"Pay Rs.2,999 processing fee to claim your reward. "+
+"Click https://example.com";
 
-    analyze();
+analyze();
+
 }
 
 
+/* Demo 3 */
+
 function demoNormal(){
 
-    document.getElementById("input").value =
-    "Hi, tomorrow's class starts at 10 AM. " +
-    "Please bring your project notes.";
+document.getElementById("input").value=
+"Hi, tomorrow's class starts at 10 AM. "+
+"Please bring your project notes.";
 
-    analyze();
+analyze();
+
 }
 
 </script>
